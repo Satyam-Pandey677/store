@@ -10,9 +10,9 @@ app.use(cookieParser())
 const port = process.env.PORT
 connectDB()
 
-app.get("/",(req, res) => {
-    res.send("hello world")
-})
+import userRouter from "./routes/user.router.js"
+
+app.use("/store/v1/api",userRouter)
 
 app.listen(port, () => {
     console.log("Server running at Port : ",port)
