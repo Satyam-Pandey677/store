@@ -1,8 +1,17 @@
-import React from 'react'
+import {Outlet} from "react-router-dom"
+import {ToastContainer} from "react-toastify"
+import Navigation from "./pages/auth/Navigation"
+import 'react-toastify/dist/ReactToastify.css'
 
 const App = () => {
   return (
-    <h1 className='text-center font-bold underline text-2xl'>App</h1>
+    <>
+    <ToastContainer/>
+    <Navigation/>
+    <main className="py-3">
+      <Outlet/>
+    </main>
+    </>
   )
 }
 
