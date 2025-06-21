@@ -9,7 +9,9 @@ export const userApiSlice = apiSlice.injectEndpoints({
                 method:"POST",
                 body:data
             })
-        })  
+        }) ,
+        
+        logout : (builder)
     })
 })
 
