@@ -11,7 +11,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
             })
         }) ,
         
-        logout : (builder)
+        logout : (builder )
     })
 })
 
