@@ -10,7 +10,7 @@ const Profile = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [consfirmPassword, setConfirmPassword] = useState("")
+  const [consfirmPassword, setConfirmPassword ] = useState("")
   return (
     <div>Profile</div>
   )
