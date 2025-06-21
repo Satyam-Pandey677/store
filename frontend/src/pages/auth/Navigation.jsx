@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "./navigation.css";
 import { useSelector, useDispatch } from "react-redux";
-import { useLoginMutation } from "../../redux/Api/apiUserSlice";
+import { useLogoutMutation } from "../../redux/Api/apiUserSlice";
 import { logout } from "../../redux/features/auth/authSlice";
 
 const Navigation = () => {
@@ -34,7 +34,7 @@ const Navigation = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [logoutApiCall] = useLoginMutation();
+  const [logoutApiCall] = useLogoutMutation();
 
   const logoutHandler = async () => {
     await logoutApiCall().unwrap();
@@ -124,7 +124,7 @@ const Navigation = () => {
 
         {dropdownOpen && userInfo && (
           <ul
-            className={`absoulte right-0 mt-2 mr-14 space-y-2 bg-white text-gray-600 ${
+            className={`absolute right-0 mt-2 mr-14 space-y-2 bg-white text-gray-600 ${
               !userInfo.data.isAdmin ? "-top-20" : "-top-80"
             }`}
           >
@@ -158,16 +158,15 @@ const Navigation = () => {
             )}
             <li>
                   <Link
-                    to="/admin/profile"
+                    to="/profile"
                     className="block px-4 py-4 hover:bg-gray-100 "
                   >Profile</Link>
                 </li>
                 <li>
-                  <Link
-                    to="/admin/logout"
+                  <button
                     onClick={logoutHandler}
                     className="block px-4 py-4 hover:bg-gray-100 "
-                  >Logout</Link>
+                  >Logout</button>
                 </li>
           </ul>
         )}

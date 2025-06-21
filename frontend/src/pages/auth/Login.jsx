@@ -83,6 +83,7 @@ const Login = () => {
                     </p>
                 </div>
             </div>
+            <video muted loop autoPlay src="https://videos.pexels.com/video-files/5585946/5585946-hd_1920_1080_25fps.mp4" alt="" className="h-[52rem] w-[59%] xl:block md:hidden sm:hidden rounded-lg" />
         </section>
     </div>
   )
