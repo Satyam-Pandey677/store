@@ -22,7 +22,8 @@ const Profile = () => {
 
   const dispatch = useDispatch()
 
-  const submitHandler =async() => {
+  const submitHandler = async (e) => {
+    e.preventDefault()
     if (password !== consfirmPassword) {
         toast.error("Password don not match")
     } else {
@@ -32,7 +33,9 @@ const Profile = () => {
           username,
           email,
           password
-        }).unwrap
+        }).unwrap()
+        dispatch(setCredientials({...res}))
+        toast.success("Updated Successfully")
       } catch (error) {
         toast.error(error?.data?.message || error.message)
         console.log(error.message)
