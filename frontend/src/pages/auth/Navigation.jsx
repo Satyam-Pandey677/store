@@ -124,7 +124,7 @@ const Navigation = () => {
 
         {dropdownOpen && userInfo && (
           <ul
-            className={`absolute right-0 mt-2 mr-14 space-y-2 bg-white text-gray-600 ${
+            className={`absolute right-0 mt-2 mr-14 space-y-2 text-white ${
               !userInfo.data.isAdmin ? "-top-20" : "-top-80"
             }`}
           >
@@ -133,19 +133,25 @@ const Navigation = () => {
                 <li>
                   <Link
                     to="/admin/dashboard"
-                    className="block px-4 py-4 hover:bg-gray-100 "
+                    className="block px-4 py-4 hover:bg-gray-500 "
                   >Dashboard</Link>
                 </li>
                 <li>
                   <Link
                     to="/admin/products"
-                    className="block px-4 py-4 hover:bg-gray-100 "
-                  >Product List</Link>
+                    className="block px-4 py-4 hover:bg-gray-500 "
+                  >Product</Link>
+                </li>
+                <li>
+                  <Link
+                    to="/admin/categorylist"
+                    className="block px-4 py-4 hover:bg-gray-500 "
+                  >Category</Link>
                 </li>
                 <li>
                   <Link
                     to="/admin/orderlist"
-                    className="block px-4 py-4 hover:bg-gray-100 "
+                    className="block px-4 py-4 hover:bg-gray-500 "
                   >Order List</Link>
                 </li>
                 <li>
