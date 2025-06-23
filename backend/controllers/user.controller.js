@@ -42,7 +42,7 @@ const loginUser = asyncHandler(async (req, res) => {
     const isPasswordMatched = await bcrypt.compare(
       password,
       existedUser.password
-    );
+    ); 
 
     if (isPasswordMatched) {
       createToken(res, existedUser._id);
