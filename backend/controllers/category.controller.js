@@ -25,6 +25,91 @@ const createCategory = asyncHandler(async(req, res) => {
         "Catogory Created Successfully"
     ))
 })
+
+const updateCategory = asyncHandler(async(req, res) => {
+    const {name} = req.body
+    const {categoryId}= req.params
+
+    if(!categoryId) {
+        throw new ApiError(404, "Category Not Found")
+    }
+
+    const exist = await Category.findOne({name})
+    if(exist) {
+        throw new ApiError(409, "Category name already exist")
+    }
+
+    const updateCategory = await Category.findByIdAndUpdate(categoryId,{name},{new:true})
+
+    if(!updateCategory){
+        throw new ApiError(500, "Something went wrong while updating category")
+    }
+
+    return res.status(200)
+    .json(new ApiResponse(
+        200,
+        updateCategory,
+        "Category Updated Successfully"
+    ))
+})
+
+const deleteCategory = asyncHandler(async(req, res) => {
+    const {categoryId} = req.params
+    
+    if(!categoryId){
+        throw new ApiError(404, "Category Not Found")
+    }
+
+    const deletedCategory = await Category.findByIdAndDelete(categoryId)
+
+    return res.status(200)
+    .json(new ApiResponse(
+        200,
+        deletedCategory,
+        "Category Deleted Successfully"
+    ))
+})
+
+const getAllCategories = asyncHandler(async(req, res) => {
+    const categories = await Category.find()
+
+    if(!categories){
+        throw new ApiError(404, "No categories found")
+    }
+
+    return res.status(200)
+    .json(new ApiResponse(
+        200,
+        categories,
+        "All Cetogries fetched"
+    ))
+})
+
+const readCategory =asyncHandler(async(req, res) => {
+    const {id} = req.params
+
+    console.log(id )
+
+    const category = await Category.findOne({_id:id})
+
+    if(!category){
+        throw new ApiError(404, "catogory not found")
+    }
+
+    return res.status(200)
+    .json(new ApiResponse(
+        200,
+        category,
+        "Category fetched"
+    ))
+})
+
+
+
 export{
-    createCategory
+    createCategory,
+    updateCategory,
+    deleteCategory,
+    getAllCategories,
+    readCategory
 }
