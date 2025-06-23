@@ -10,7 +10,10 @@ const port = process.env.PORT
 connectDB()
 
 import userRouter from "./routes/user.router.js"
+import categoryRouter from "./routes/category.router.js"
+
 app.use("/api/user",userRouter)
+app.use("/api/category", categoryRouter)
 
 app.listen(port, () => {
     console.log("Server running at Port : ",port)
