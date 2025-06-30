@@ -7,7 +7,6 @@ import Modal from "../../component/Modal"
 
 const CategoryList = () => {
     const {data: categories }= useFetchAllCategoriesQuery() 
-    console.log(categories)
     const [name, setName] = useState("")
     const [selectedCategory, setSelectedCategory] = useState(null)
     const [updatingName, setUpdatingName] = useState("")
@@ -66,7 +65,6 @@ const CategoryList = () => {
     }
 
     const handleDeleteCategory = async() => {
-        console.log(selectedCategory)
         try {
             const result = await deleteCategory(selectedCategory._id).unwrap()
             if(result.error){

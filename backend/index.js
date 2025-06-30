@@ -11,9 +11,10 @@ connectDB()
 
 import userRouter from "./routes/user.router.js"
 import categoryRouter from "./routes/category.router.js"
-
+import productRouter from "./routes/product.router.js"
 app.use("/api/user",userRouter)
 app.use("/api/category", categoryRouter)
+app.use("/api/product",productRouter)
 
 app.listen(port, () => {
     console.log("Server running at Port : ",port)
