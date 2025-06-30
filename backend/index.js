@@ -14,7 +14,7 @@ import categoryRouter from "./routes/category.router.js"
 import productRouter from "./routes/product.router.js"
 app.use("/api/user",userRouter)
 app.use("/api/category", categoryRouter)
-app.use("/api/product",productRouter)
+app.use("/api/products",productRouter)
 
 app.listen(port, () => {
     console.log("Server running at Port : ",port)
