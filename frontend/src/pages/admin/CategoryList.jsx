@@ -3,6 +3,7 @@ import { toast } from "react-toastify"
 import { useCreateCategoryMutation, useUpdateCategoryMutation, useDeleteCategoryMutation, useFetchAllCategoriesQuery } from "../../redux/Api/apiCategorySlice"
 import CategoryForm from "../../component/CategoryForm"
 import Modal from "../../component/Modal"
+import AdminMenu from "./AdminMenu"
 
 
 const CategoryList = () => {
@@ -81,7 +82,7 @@ const CategoryList = () => {
 
   return (
     <div className="ml-[10rem] flex flex-col md:flex-row">
-        {/* AdminMenu */}
+        <AdminMenu/>
         <div className="md:w-3/4 p-3">
             <div className="h-12">Manage Category</div>
             <CategoryForm value={name} setValue={setName} handleSubmit={handleCreateCategory}/>

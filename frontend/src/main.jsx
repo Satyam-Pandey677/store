@@ -14,6 +14,9 @@ import Profile from "./pages/user/Profile.jsx";
 import MyAdminRoute from "./pages/admin/MyAdminRoute.jsx";
 import UserList from "./pages/admin/UserList.jsx";
 import CategoryList from "./pages/admin/CategoryList.jsx";
+import ProductList from "./pages/admin/ProductList.jsx";
+import UpdateProduct from "./pages/admin/UpdateProduct.jsx";
+import AllProducts from "./pages/admin/AllProducts.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,6 +32,9 @@ const router = createBrowserRouter(
       <Route path="/admin" element={<MyAdminRoute />}>
         <Route path="userlist" element={<UserList/>} />
         <Route path="categorylist" element={<CategoryList/>}/>
+        <Route path="productlist" element={<ProductList/>}/>
+        <Route path="allproductlist" element={<AllProducts/>}/>
+        <Route path="product/update/:id" element={<UpdateProduct/>}/>
       </Route>
     </Route>
   )

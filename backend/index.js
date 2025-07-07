@@ -1,6 +1,7 @@
 import express from "express";
 import { connectDB } from "./config/db.js";
 import cookieParser from "cookie-parser";
+import path from "path";
 
 const app = express()
 app.use(express.json())
@@ -12,9 +13,15 @@ connectDB()
 import userRouter from "./routes/user.router.js"
 import categoryRouter from "./routes/category.router.js"
 import productRouter from "./routes/product.router.js"
+import uploadRouter from "./routes/upload.router.js"
 app.use("/api/user",userRouter)
 app.use("/api/category", categoryRouter)
 app.use("/api/products",productRouter)
+app.use("/api/upload", uploadRouter)
+
+const __dirname = path.resolve()
+console.log(__dirname)
+app.use('/uploads', express.static(path.join(__dirname + '/uploads')))
 
 app.listen(port, () => {
     console.log("Server running at Port : ",port)

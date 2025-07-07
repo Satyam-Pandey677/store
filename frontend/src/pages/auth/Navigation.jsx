@@ -49,7 +49,7 @@ const Navigation = () => {
       style={{ zIndex: 999 }}
       className={`${
         showSideBar ? "hidden" : "flex"
-      } xl:flex lg:flex md: hidden sm:hidden flex-col justify-between p-4 text-white bg-[#000] w-[4%] hover:w-[15%] h-[100vh] fixed`}
+      } xl:flex border-1 lg:flex md: hidden sm:hidden flex-col justify-between p-4 bg-[#fff] w-[4%] hover:w-[15%] h-[100vh] hover:border-1 fixed `}
       id="navigation-container"
     >
       <div className="flex flex-col justify-center space-y-4">
@@ -57,8 +57,8 @@ const Navigation = () => {
           to="/home"
           className="flex items-center transition-transform transform hover:translate-x-2"
         >
-          <AiOutlineHome className="mr-2 mt-[3rem]" size={26} />
-          <span className="hidden nav-item-name mt-[3rem] text-white">
+          <AiOutlineHome className="mr-2 mt-[3rem] text-black" size={26} />
+          <span className="hidden nav-item-name mt-[3rem] text-black">
             HOME
           </span>{" "}
         </Link>
@@ -66,8 +66,8 @@ const Navigation = () => {
           to="/shop"
           className="flex items-center transition-transform transform hover:translate-x-2"
         >
-          <AiOutlineShopping className="mr-2 mt-[3rem]" size={26} />
-          <span className="hidden nav-item-name mt-[3rem] text-white">
+          <AiOutlineShopping className="mr-2 mt-[3rem] text-black" size={26} />
+          <span className="hidden nav-item-name mt-[3rem] text-black">
             SHOPPING
           </span>{" "}
         </Link>
@@ -75,8 +75,8 @@ const Navigation = () => {
           to="/cart"
           className="flex items-center transition-transform transform hover:translate-x-2"
         >
-          <AiOutlineShoppingCart className="mr-2 mt-[3rem]" size={26} />
-          <span className="hidden nav-item-name mt-[3rem] text-white">
+          <AiOutlineShoppingCart className="mr-2 mt-[3rem] text-black" size={26} />
+          <span className="hidden nav-item-name mt-[3rem] text-black">
             CART
           </span>{" "}
         </Link>
@@ -84,8 +84,8 @@ const Navigation = () => {
           to="/favorite"
           className="flex items-center transition-transform transform hover:translate-x-2"
         >
-          <FaHeart className="mr-2 mt-[3rem]" size={26} />
-          <span className="hidden nav-item-name mt-[3rem] text-white ">
+          <FaHeart className="mr-2 mt-[3rem] text-black" size={26} />
+          <span className="hidden nav-item-name mt-[3rem] text-black">
             Favorites
           </span>{" "}
         </Link>
@@ -94,10 +94,10 @@ const Navigation = () => {
       <div className="relative">
         <button
           onClick={toggleDropdown}
-          className="flex item-center text-gray-8000 focus:outline-none"
+          className="flex item-center focus:outline-none text-black"
         >
           {userInfo ? (
-            <span className="text-white">{userInfo.data.username}</span>
+            <span className="text-black">{userInfo.data.username}</span>
           ) : (
             <></>
           )}
@@ -110,7 +110,7 @@ const Navigation = () => {
               }`}
               fill="none"
               viewBox="0 0 24 24"
-              stroke="white"
+              stroke="black"
             >
               <path
                 strokeLinecap="rounded"
@@ -124,7 +124,7 @@ const Navigation = () => {
 
         {dropdownOpen && userInfo && (
           <ul
-            className={`absolute right-0 mt-2 mr-14 space-y-2 text-white ${
+            className={`absolute right-0 mt-2 mr-14 space-y-2 text-black ${
               !userInfo.data.isAdmin ? "-top-20" : "-top-80"
             }`}
           >
@@ -133,25 +133,25 @@ const Navigation = () => {
                 <li>
                   <Link
                     to="/admin/dashboard"
-                    className="block px-4 py-4 hover:bg-gray-500 "
+                    className="block px-4 py-4 hover:bg-gray-100 "
                   >Dashboard</Link>
                 </li>
                 <li>
                   <Link
-                    to="/admin/products"
-                    className="block px-4 py-4 hover:bg-gray-500 "
+                    to="/admin/productlist"
+                    className="block px-4 py-4 hover:bg-gray-100 "
                   >Product</Link>
                 </li>
                 <li>
                   <Link
                     to="/admin/categorylist"
-                    className="block px-4 py-4 hover:bg-gray-500 "
+                    className="block px-4 py-4 hover:bg-gray-100 "
                   >Category</Link>
                 </li>
                 <li>
                   <Link
                     to="/admin/orderlist"
-                    className="block px-4 py-4 hover:bg-gray-500 "
+                    className="block px-4 py-4 hover:bg-gray-100 "
                   >Order List</Link>
                 </li>
                 <li>
