@@ -54,7 +54,7 @@ const Navigation = () => {
     >
       <div className="flex flex-col justify-center space-y-4">
         <Link
-          to="/home"
+          to="/"
           className="flex items-center transition-transform transform hover:translate-x-2"
         >
           <AiOutlineHome className="mr-2 mt-[3rem] text-black" size={26} />

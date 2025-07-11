@@ -1,10 +1,10 @@
+import ProductCrousel from "../pages/products/ProductCrousel"
 import SmallProducts from "../pages/products/SmallProducts"
 import { useGetTopProductQuery } from "../redux/Api/productApiSlice"
 import Loader from "./Loader"
 
 const Header = () => {
   const {data, isLoading, error} = useGetTopProductQuery()
-  console.log(data)
   
   if(isLoading){
     return <Loader/>
@@ -26,6 +26,7 @@ const Header = () => {
             ))}
           </div>
         </div>
+        <ProductCrousel/>
       </div>
     </>
   )

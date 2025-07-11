@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import store from "./redux/store.js";
 import Login from "./pages/auth/Login.jsx";
 import Register from "./pages/auth/Register.jsx";
-import Home from "./Home.jsx";
+import Home from "./pages/Home.jsx";
 
 import PrivateRoute from "./component/PrivateRoute.jsx";
 import Profile from "./pages/user/Profile.jsx";
