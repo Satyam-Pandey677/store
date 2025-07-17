@@ -12,6 +12,7 @@ import {
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import Rating from "./Rating";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -33,6 +34,12 @@ const ProductDetails = () => {
   if (!product) {
     return <Loader />;
   }
+
+  const addToCart = () => {
+
+  }
+
+  console.log(product)
   return (
     <div className="px-[9rem] ">
     <div className="mt-[3rem] flex justify-center gap-10">
@@ -54,8 +61,8 @@ const ProductDetails = () => {
         </h1>
         <span className="text-gray-600">incl. of all taxes</span>
 
-        <div className="flex gap-25 ">
-            <div className="flex justify-between w-[20rem] mt-[2rem] gap-15">
+        <div className=" flex gap-25 ">
+        <div className="flex justify-between w-[20rem] mt-[2rem] gap-15">
           <div className="one">
             
             <h1 className="flex items-center mb-6 w-[10rem]">
@@ -74,26 +81,46 @@ const ProductDetails = () => {
             </h1>
             <h1 className="flex item-center mb-6 w-[7rem]">
               <FaShoppingCart className="mr-2 mt-1 " /> Quantity:{" "}
-              {product.quantity}
+              {product.countInStock > 0 && (
+                    <div>
+                        <select
+                            value={qty}
+                            onChange={(e) => setQty(e.target.value)}
+                            className="p-2 w-[6rem] rounded-lg text-black"
+                            >
+                                {[...Array(product.countInStock).keys()].map((x) => (
+                                    <option key={x+1} value={x+1} className="outline">
+                                        {x+1}
+                                    </option>
+                                ))}
+
+                        </select>
+                    </div>
+              )}
             </h1>
             <h1 className="flex item-center mb-6 w-[7rem]">
               <FaBox className="mr-2 mt-1 " /> In Stock: {product.countInStock}
             </h1>
           </div>
-            </div>
-            <div className="flex flex-col gap-5 mt-15">
-                <button className="w-[20rem] text-center py-2 bg-pink-600 text-[30px] rounded-lg hover:bg-pink-700 text-white font-bold">
+        </div>
+        <div className="flex flex-col gap-5 mt-15">
+                <button onClick={addToCart} disable={product.countInStock === 0}  className="w-[20rem] text-center py-2 bg-pink-600 text-[30px] rounded-lg hover:bg-pink-700 text-white font-bold">
                     Add Cart
                 </button>
                 <button className="w-[20rem] text-center py-2 bg-pink-600 text-[30px] rounded-lg hover:bg-pink-700 text-white font-bold">
                     Buy
                 </button>
-            </div>
-        </div> 
+        </div>
+        </div>
+        <div className="flex justify-between flex-wrap">
+                <Rating 
+                    product={product.rating}
+                    text = {`${product.numReviews} reviews`}
+                />
+          </div> 
       </div>
     </div>
-
-    
+        
     </div>
   );
 };
