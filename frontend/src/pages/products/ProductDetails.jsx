@@ -1,5 +1,5 @@
-import { useGetProductDetailsQuery } from "../../redux/Api/productApiSlice";
-import { useParams } from "react-router-dom";
+import { useGetProductDetailsQuery, useReviewProductMutation } from "../../redux/Api/productApiSlice";
+import { useNavigate, useParams } from "react-router-dom";
 import HeartIcon from "./HeartIcon";
 import Loader from "../../component/Loader";
 import {
@@ -10,19 +10,33 @@ import {
   FaStore,
 } from "react-icons/fa";
 import moment from "moment";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const { data: productData, isLoading, error } = useGetProductDetailsQuery(id);
-  console.log(productData);
-  const product = productData.data;
+  const navigate = useNavigate()
+
+  const [product , setProduct] = useState([])
+  const [qty, setQty] = useState(1);
+  const [rating, setRating] = useState(1);
+  const [comment, setComment] = useState(1);
+
+  const userInfo = useSelector(state => state.auth)
+  useEffect(() => {
+    setProduct(productData.data)
+  },[productData])
+
+  const [createReview, {isLoading:loadingProductReview}] = useReviewProductMutation()
 
   if (!product) {
     return <Loader />;
   }
   return (
-    <div className="px-[9rem] mt-[3rem] flex justify-center gap-10">
-      <div className="relative w-[50rem]">
+    <div className="px-[9rem] ">
+    <div className="mt-[3rem] flex justify-center gap-10">
+        <div className="relative w-[50rem]">
         <img
           src={product.image}
           alt={product.name}
@@ -41,11 +55,9 @@ const ProductDetails = () => {
         <span className="text-gray-600">incl. of all taxes</span>
 
         <div className="flex gap-25 ">
-            <div className="flex justify-between w-[20rem] mt-[2rem] gap-20">
+            <div className="flex justify-between w-[20rem] mt-[2rem] gap-15">
           <div className="one">
-            <h1 className="flex items-center mb-6 w-[8rem]">
-              <FaStore className="mr-2" /> Brand: {product.brand}
-            </h1>
+            
             <h1 className="flex items-center mb-6 w-[10rem]">
               <FaClock className="mr-2" /> Added:{" "}
               {moment(product.createdAt).fromNow()}
@@ -77,9 +89,11 @@ const ProductDetails = () => {
                     Buy
                 </button>
             </div>
-        </div>
-        
+        </div> 
       </div>
+    </div>
+
+    
     </div>
   );
 };
