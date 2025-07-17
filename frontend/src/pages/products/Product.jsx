@@ -10,7 +10,7 @@ const Product = ({product}) => {
         </div>
 
         <div className="p-4">
-            <Link to={`product/${product._id}`}>
+            <Link to={`/product/${product._id}`}>
                 <div className="flex justify-between item-center">
                     <div className="text-lg">
                         {product.name}
