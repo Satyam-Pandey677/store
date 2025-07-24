@@ -13,20 +13,22 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Rating from "./Rating";
+import ProductTabs from "./ProductTabs";
+import { toast } from "react-toastify";
 
 const ProductDetails = () => {
   const { id } = useParams();
-  const { data: productData, isLoading, error } = useGetProductDetailsQuery(id);
+  const { data: productData, isLoading, refetch ,error } = useGetProductDetailsQuery(id);
   const navigate = useNavigate()
 
   const [product , setProduct] = useState([])
   const [qty, setQty] = useState(1);
   const [rating, setRating] = useState(1);
-  const [comment, setComment] = useState(1);
+  const [comment, setComment] = useState("");
 
   const userInfo = useSelector(state => state.auth)
   useEffect(() => {
-    setProduct(productData.data)
+    setProduct(productData?.data)
   },[productData])
 
   const [createReview, {isLoading:loadingProductReview}] = useReviewProductMutation()
@@ -39,7 +41,20 @@ const ProductDetails = () => {
 
   }
 
-  console.log(product)
+  const submitHandler = async(e) => {
+    e.preventDefault()
+
+    try {
+      await createReview({id, rating, comment }).unwrap()
+      refetch()
+      toast.success("Review created succesfully")
+      
+    } catch (error) {
+      toast.error(error.message)
+    }
+  }
+  
+console.log(product.rating)
   return (
     <div className="px-[9rem] ">
     <div className="mt-[3rem] flex justify-center gap-10">
@@ -114,11 +129,24 @@ const ProductDetails = () => {
         </div>
         <div className="flex justify-between flex-wrap">
                 <Rating 
-                    product={product.rating}
+                    value={product.rating}
                     text = {`${product.numReviews} reviews`}
                 />
           </div> 
       </div>
+    </div>
+    
+    <div className="mt-[5rem] container flex flex-wrap item-start justify-between ml-[10rem]">
+      <ProductTabs 
+        loadingProductReview={loadingProductReview} 
+        userInfo={userInfo}
+        submitHandler = {submitHandler}
+        rating = {rating}
+        setRating = {setRating}
+        comment= {comment}
+        setComment = {setComment}
+        product = {product}
+      />
     </div>
         
     </div>
