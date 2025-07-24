@@ -1,6 +1,5 @@
 import { FaStar, FaRegStar, FaStarHalfAlt } from "react-icons/fa"
 const Rating = ({value, text, color}) => {
-    console.log(value)
     const numericValue = Number(value) || 0;
     const fullStar = Math.floor(numericValue);
     const halfStar = value - fullStar > 0.5 ? 1 : 0;
