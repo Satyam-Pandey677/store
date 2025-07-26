@@ -8,7 +8,6 @@ import Product from './products/Product';
 const Home = () => {
   const {keyword} = useParams()
   const {data, isLoading, isError} = useGetProductQuery({keyword})
-  console.log(data)
   
   
   return (

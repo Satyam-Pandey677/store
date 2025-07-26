@@ -78,17 +78,36 @@ const ProductTabs = ({loadingProductReview, userInfo, submitHandler, rating, set
 
                 <div>
                     {product.review.map((review) => (
-                        <div key={review._id} className='bg-[#1a1a1a] p-4 rounded-lg xl:ml-[2rem] sm:ml-[0rem] xl:w-[0rem] xl:w-[50rem] sm:w-[24rem] mb-5'>
+                        <div key={review._id} className='border rounded-full p-4 rounded-lg xl:ml-[2rem] sm:ml-[0rem] xl:w-[0rem] xl:w-[50rem] sm:w-[24rem] mb-5'>
                             <div className="flex justify-between">
                                 <strong className='text-[#B0b0b0b0]'>{review.name}</strong>
                                 <p className='text-[#B0b0b0b0]'>{review.createdAt.substring(0,10)}</p>
                             </div>
+
+                            <p className='my-4'>{review.comment}</p>
+                            <Rating value={review.rating}/>
                         </div>
                     ))}
                 </div>
                 </>
             )}
         </section> 
+
+        <section>
+            {activeTab == 3 && (
+                <section className='ml-[4rem] flex flex-wrap'>
+                    {!data ? (
+                        <Loader/>
+                    ): (
+                        data?.data.map((product) => (
+                            <div key={product._id}>
+                                <SmallProducts product={product}/>
+                            </div>
+                        ))
+                    )}
+                </section>
+            )}
+        </section>
 
 
     </div> 

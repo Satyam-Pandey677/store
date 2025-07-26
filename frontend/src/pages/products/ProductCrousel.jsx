@@ -14,7 +14,6 @@ import {
 
 const ProductCrousel = () => {
     const {data, isLoading, error} = useGetTopProductQuery()
-    console.log(data)
 
     const settings = {
         dots:false,

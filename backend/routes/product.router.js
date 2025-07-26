@@ -12,7 +12,7 @@ router.route("/")
 
 router.route("/allproducts").get(fetchAllProducts)
 
-router.route("/:id/review").post(authenticate, authorizeAdmin, addProductReview)
+router.route("/:id/review").post(authenticate, addProductReview)
 
 router.route("/top").get(getTopProducts)
 router.route("/new").get(getNewProduct)
