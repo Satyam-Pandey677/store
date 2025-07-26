@@ -54,7 +54,7 @@ const ProductDetails = () => {
     }
   }
   
-console.log(product.rating)
+
   return (
     <div className="px-[9rem] ">
     <div className="mt-[3rem] flex justify-center gap-10">
