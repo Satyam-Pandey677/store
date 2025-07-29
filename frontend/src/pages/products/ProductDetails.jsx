@@ -11,15 +11,17 @@ import {
 } from "react-icons/fa";
 import moment from "moment";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Rating from "./Rating";
 import ProductTabs from "./ProductTabs";
 import { toast } from "react-toastify";
+import { addToCart } from "../../redux/features/cart/carSlice";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const { data: productData, isLoading, refetch ,error } = useGetProductDetailsQuery(id);
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const [product , setProduct] = useState([])
   const [qty, setQty] = useState(1);
@@ -37,10 +39,6 @@ const ProductDetails = () => {
     return <Loader />;
   }
 
-  const addToCart = () => {
-
-  }
-
   const submitHandler = async(e) => {
     e.preventDefault()
 
@@ -52,6 +50,15 @@ const ProductDetails = () => {
     } catch (error) {
       toast.error(error.message)
     }
+  }
+  
+  
+
+  const addToCatHandler = () => {
+    console.log(dispatch(addToCart({...productData, qty})));
+    // dispatch(addToCart({...product, qty}))
+    
+    navigate("/cart");
   }
   
 
@@ -119,11 +126,8 @@ const ProductDetails = () => {
           </div>
         </div>
         <div className="flex flex-col gap-5 mt-15">
-                <button onClick={addToCart} disable={product.countInStock === 0}  className="w-[20rem] text-center py-2 bg-pink-600 text-[30px] rounded-lg hover:bg-pink-700 text-white font-bold">
+                <button onClick={addToCatHandler} disabled={product.countInStock == 0}  className="w-[20rem] text-center py-2 bg-pink-600 text-[30px] rounded-lg hover:bg-pink-700 text-white font-bold">
                     Add Cart
-                </button>
-                <button className="w-[20rem] text-center py-2 bg-pink-600 text-[30px] rounded-lg hover:bg-pink-700 text-white font-bold">
-                    Buy
                 </button>
         </div>
         </div>

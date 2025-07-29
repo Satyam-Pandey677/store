@@ -1,24 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { updateCart } from "../../../utils/cart";
 
-const initialState = localStorage.getItem("cart") ? json.parse(localStorage.getItem("cart")) : {cartItems: [], shippingAddress: {}, PaymentMethod: "PayPal"};
+const initialState = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : {cartItems: [], shippingAddress: {}, PaymentMethod: "PayPal"};
 
 const cartSlice = createSlice({
     name:"cart",
     initialState,
     reducers: {
         addToCart : (state, action )=> {
-            const {user, rating, numReviews, reviews, ...item} = action.payload
-            const existItem = state.cartItems.find((x) => x.id === item.id)
-
+            const {data, qty} = action.payload
+            const {user, rating, numReviews, reviews, ...item} = data;
+            const existItem = state.cartItems.find((x) => x._id === item._id);
             if(existItem){
-                state.cartItems = state.cartItems.map((x)= > x.id === existItem._id ? item : x);
+                state.cartItems = state.cartItems.map((x) => x._id === existItem._id ? item : x);
             }else{
                 state.cartItems = [...state.cartItems, item]
+                console.log(state.cartItems);
+                
             }
-
             return updateCart(state, item)
         },
+
         removeFromCart : (state, action )=> {
         state.cartItems = state.cartItems.filter((x) => x._id !== action.payload);
         return updateCart(state)
@@ -44,3 +46,5 @@ const cartSlice = createSlice({
 })
 
 export const {addToCart, removeFromCart, savePaymentMethod, saveShippingAdrress, clearCartItems, resetCart} = cartSlice.actions
+
+export default cartSlice.reducer
