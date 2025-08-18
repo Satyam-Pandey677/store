@@ -17,6 +17,7 @@ import FavoriteCount from "../products/FavoriteCount";
 
 const Navigation = () => {
   const { userInfo } = useSelector((state) => state.auth);
+  const {cartItems }= useSelector((state) => state.cart) 
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showSideBar, setShowSideBar] = useState(false);
@@ -78,6 +79,15 @@ const Navigation = () => {
           <span className="hidden nav-item-name mt-[3rem] text-black">
             CART
           </span>{" "}
+          <div className="absolute top-">
+            {cartItems.length > 0 && (
+              <span>
+                <div className="span px-1 text-sm text-white bg-pink-400 rounded-full">
+                  {cartItems.reduce((a, c) => a + c.qty, 0 )}
+                </div>
+              </span>
+            )}
+          </div>
         </Link>
         <Link
           to="/favorite"

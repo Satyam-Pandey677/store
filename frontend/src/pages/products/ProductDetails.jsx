@@ -31,6 +31,7 @@ const ProductDetails = () => {
   const userInfo = useSelector(state => state.auth)
   useEffect(() => {
     setProduct(productData?.data)
+    console.log(productData?.data)
   },[productData])
 
   const [createReview, {isLoading:loadingProductReview}] = useReviewProductMutation()
@@ -55,9 +56,7 @@ const ProductDetails = () => {
   
 
   const addToCatHandler = () => {
-    console.log(dispatch(addToCart({...productData, qty})));
-    // dispatch(addToCart({...product, qty}))
-    
+    dispatch(addToCart({...product, qty}))
     navigate("/cart");
   }
   
