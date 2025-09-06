@@ -22,6 +22,9 @@ const PlaceOrder = () => {
   }, [cart.paymentMethod, cart.shippingAddress.address, navigate]);
 
   const dispatch = useDispatch();
+  const placeholderHandler = () => {
+    
+  }
 
   return (
     <>
@@ -88,13 +91,20 @@ const PlaceOrder = () => {
 
                         {error && <Message variant='danger'>{error.message}</Message>}
                         <div>    
-                        <h2 className="h-2 text-2xl font-semibold mb-4">Shipping</h2>
+                        <h2 className=" text-2xl font-semibold mb-4">Shipping</h2>
                         <p>
                             <strong>Address</strong> {" "}
                             {cart.shippingAddress.address}, {cart.shippingAddress.city}{" "}
                             {cart.shippingAddress.postalCode}, {cart.shippingAddress.country}
                         </p>
                         </div>
+
+                        <div>
+                          <h2 className="text-2xl font-medium mb-4">Payment Method</h2>
+                          <strong>Method: </strong>
+                          {cart.paymentMethod}
+                        </div>
+                        <button type="button" className="bg-pink-500 text-white py-2 px-4 rounded-full text-lg w-full mt-4"disabled={cart.cartItems ===0} onClick={placeholderHandler}></button>
                     </div>
                  </div>
           </div>
