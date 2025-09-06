@@ -89,7 +89,7 @@ const PlaceOrder = () => {
                         {error && <Message variant='danger'>{error.message}</Message>}
                         <div>    
                         <h2 className="h-2 text-2xl font-semibold mb-4">Shipping</h2>
-                        <p className="mt-4">
+                        <p>
                             <strong>Address</strong> {" "}
                             {cart.shippingAddress.address}, {cart.shippingAddress.city}{" "}
                             {cart.shippingAddress.postalCode}, {cart.shippingAddress.country}
