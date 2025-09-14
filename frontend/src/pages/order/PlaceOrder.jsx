@@ -22,8 +22,23 @@ const PlaceOrder = () => {
   }, [cart.paymentMethod, cart.shippingAddress.address, navigate]);
 
   const dispatch = useDispatch();
-  const placeholderHandler = () => {
-    
+  const placeholderHandler = async() => {
+      try {
+        const res = await createOrder({
+          orderItems : cart.cartItems,
+          shippingAddress: cart.shippingAddress,
+          paymentMethod: cart.paymentMethod,
+          itemsPrice:cart.itemsPrice,
+          shippingPrice: cart.shippingPrice,
+          taxPrice: cart.taxPrice,
+          totalPrice: cart.totalPrice
+        }).unwrap()
+
+        dispatch(clearCartItems)
+        navigate(`/order/${res._id}`)
+      } catch (error) {
+        toast.error(error)
+      }
   }
 
   return (
@@ -104,7 +119,7 @@ const PlaceOrder = () => {
                           <strong>Method: </strong>
                           {cart.paymentMethod}
                         </div>
-                        <button type="button" className="bg-pink-500 text-white py-2 px-4 rounded-full text-lg w-full mt-4"disabled={cart.cartItems ===0} onClick={placeholderHandler}></button>
+                        <button type="button" className="bg-pink-500 text-white py-2 px-4 rounded-full text-lg w-full mt-4"disabled={cart.cartItems ===0} onClick={placeholderHandler}>Place Order</button>
                     </div>
                  </div>
           </div>
