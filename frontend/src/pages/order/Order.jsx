@@ -52,8 +52,6 @@ const Order = () => {
         paypalDispatch({ type: "setLoadingStatus", value: "pending" });
       };
 
-      console.log(order)
-
       if (order && !order.isPaid) {
         if (!window.paypal) {
           loadingPayPalScript();
@@ -87,6 +85,11 @@ const Order = () => {
   const onError = (error) => {
     toast.error(error.message);
   };
+
+  const deliverHandler = async() => {
+    await deliverOrder(orderId)
+    refetch()
+  }
 
   return isLoading ? (
     <Loader />
@@ -163,9 +166,9 @@ const Order = () => {
             <strong className="text-pink-500">Email:</strong>{" "}
             {order.order.paymentMethod}
           </p>
-          {order.order.isPais ? (
+          {order.order.isPaid ? (
             <Message variant="success" className="text-pink-500">
-              Paid on {order.paidAt}
+              Paid on {order.order.paidAt}
             </Message>
           ) : (
             <Message variant="danger" className="text-pink-500">
@@ -208,6 +211,15 @@ const Order = () => {
                 </div>
               </div>
             )}
+          </div>
+        )}
+
+        {loadingDeliver && <Loader/>}
+        {userInfo.userInfo && userInfo.userInfo.data.isAdmin && order.order.isPaid && !order.order.isDelivered && (
+          <div >
+              <button type="buuton" className="bg-pink-500 text-white  w-full py-2" onClick={deliverHandler}>
+                Mark As Delivered
+              </button>
           </div>
         )}
       </div>
