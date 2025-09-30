@@ -16,6 +16,8 @@ import Product from "../products/Product";
 const Order = () => {
   const { id: orderId } = useParams();
 
+  
+
   const {
     data: order,
     refetch,
@@ -23,7 +25,10 @@ const Order = () => {
     error,
   } = useGetOrderDetailsQuery(orderId);
 
-  const [payOrder, { isLoading: loadingDeliver }] = useDeliverOrderMutation();
+  const [payOrder, { isLoading: loadingPay }] = usePayOrderMutation();
+
+  const [deliverOrder, { isLoading: loadingDeliver }] =
+    useDeliverOrderMutation();
   const userInfo = useSelector((state) => state.auth);
 
   const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
@@ -47,6 +52,8 @@ const Order = () => {
         paypalDispatch({ type: "setLoadingStatus", value: "pending" });
       };
 
+      console.log(order)
+
       if (order && !order.isPaid) {
         if (!window.paypal) {
           loadingPayPalScript();
@@ -54,6 +61,32 @@ const Order = () => {
       }
     }
   }, [errorPayPal, loadingPayPal, order, paypal, paypalDispatch]);
+
+  function onApprove(data, actions) {
+    return actions.order.capture().then(async function (details) {
+      try {
+        await payOrder({ orderId, details });
+        refetch();
+        toast.success("order is paid");
+      } catch (error) {
+        toast.error(error?.data?.message || error.message);
+      }
+    });
+  }
+
+  const createOrder = (data, actions) => {
+    return actions.order
+      .create({
+        purchase_units: [{ amount: { value: order.order.totalPrice } }],
+      })
+      .then((orderId) => {
+        return orderId;
+      });
+  };
+
+  const onError = (error) => {
+    toast.error(error.message);
+  };
 
   return isLoading ? (
     <Loader />
@@ -78,8 +111,7 @@ const Order = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {order.order.orderItems?.map((item, index) =>
-                  (
+                  {order.order.orderItems?.map((item, index) => (
                     <tr key={index}>
                       <td className="p-2">
                         <img
@@ -107,29 +139,77 @@ const Order = () => {
       </div>
 
       <div className="md:w-1/3">
-          <div className="mt-5 border-gray-300 pb-4 mb-4">
-            <h2 className="text-xl font-bold mb-2">Shopping</h2>
-            <p className="mb-4 mt-4">
-              <strong className="text-pink-500">Order:</strong> {order.order._id}
-            </p>
-            <p className="mb-4 mt-4">
-              <strong className="text-pink-500">Name:</strong> {order.order.user.username}
-            </p>
-            <p className="mb-4 mt-4">
-              <strong className="text-pink-500">Email:</strong> {order.order.user.email}
-            </p>
-            <p className="mb-4 mt-4">
-              <strong className="text-pink-500">Address:</strong> {order.order.shippingAddress.address}, {order.order.shippingAddress.city} {" "} {order.order.shippingAddress.postalCode} {" "} {order.order.shippingAddress.country}
-            </p>
-            <p className="mb-4 mt-4">
-              <strong className="text-pink-500">Email:</strong> {order.order.paymentMethod}
-            </p>
-              {order.order.isPais ? (
-                <Message variant='success' className='text-pink-500'>Paid on {order.paidAt}</Message>
-              ) : (
-                 <Message variant='danger' className='text-pink-500'>Not paid</Message>
-              )}
+        <div className="mt-5 border-gray-300 pb-4 mb-4">
+          <h2 className="text-xl font-bold mb-2">Shopping</h2>
+          <p className="mb-4 mt-4">
+            <strong className="text-pink-500">Order:</strong> {order.order._id}
+          </p>
+          <p className="mb-4 mt-4">
+            <strong className="text-pink-500">Name:</strong>{" "}
+            {order.order.user.username}
+          </p>
+          <p className="mb-4 mt-4">
+            <strong className="text-pink-500">Email:</strong>{" "}
+            {order.order.user.email}
+          </p>
+          <p className="mb-4 mt-4">
+            <strong className="text-pink-500">Address:</strong>{" "}
+            {order.order.shippingAddress.address},{" "}
+            {order.order.shippingAddress.city}{" "}
+            {order.order.shippingAddress.postalCode}{" "}
+            {order.order.shippingAddress.country}
+          </p>
+          <p className="mb-4 mt-4">
+            <strong className="text-pink-500">Email:</strong>{" "}
+            {order.order.paymentMethod}
+          </p>
+          {order.order.isPais ? (
+            <Message variant="success" className="text-pink-500">
+              Paid on {order.paidAt}
+            </Message>
+          ) : (
+            <Message variant="danger" className="text-pink-500">
+              Not paid
+            </Message>
+          )}
+        </div>
+
+        <h2 className="text-xl font-bold mb-2 mt-[3rem]">Order Summary</h2>
+        <div className="flex justify-between mb-2">
+          <span>Items</span>
+          <span>$ {order.order.itemsPrice}</span>
+        </div>
+        <div className="flex justify-between mb-2">
+          <span>Shipping Price: </span>
+          <span>$ {order.order.shippingPrice}</span>
+        </div>
+        <div className="flex justify-between mb-2">
+          <span>Taxes</span>
+          <span>$ {order.order.taxPrice}</span>
+        </div>
+        <div className="flex justify-between mb-2">
+          <span>Total Price</span>
+          <span>$ {order.order.totalPrice}</span>
+        </div>
+
+        {!order.order.isPaid && (
+          <div>
+            {loadingPay && <Loader />}
+            {isPending ? (
+              <Loader />
+            ) : (
+              <div>
+                <div>
+                  <PayPalButtons
+                  createOrder={createOrder}
+                  onApprove={onApprove}
+                  onError={onError}
+                  ></PayPalButtons>
+                </div>
+              </div>
+            )}
           </div>
+        )}
       </div>
     </div>
   );

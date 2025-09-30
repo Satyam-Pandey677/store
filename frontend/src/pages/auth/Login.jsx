@@ -46,7 +46,7 @@ const Login = () => {
             <div className="mr-[4rem] mt-[5rem]">
                 <h1 className="text-2xl font-semibold mb-4">Sign In</h1>
 
-                <form onSubmit={submitHandler} className="constainer w-[40rem]">
+                <form onSubmit={submitHandler} className="container w-[40rem]">
                     <div className="my-[2rem]">
                         <label htmlFor="email" className="block text-sm font-medium ">Email Address</label>
                         <input 
