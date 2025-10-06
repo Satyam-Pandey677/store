@@ -27,7 +27,7 @@ import PlaceOrder from "./pages/order/PlaceOrder.jsx";
 
 import {PayPalScriptProvider} from  "@paypal/react-paypal-js"
 import Order from "./pages/order/Order.jsx";
-import UserOrder from "./pages/user/userOrder.jsx";
+import UserOrder from "./pages/user/UserOrder.jsx";
 import OrderList from "./pages/admin/OrderList.jsx";
 import AdminDashboard from "./pages/admin/AdminDashboard.jsx";
 

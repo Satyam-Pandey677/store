@@ -1,14 +1,11 @@
 import Message from "../../component/Message"
 import { Link } from "react-router-dom"
-import { useGetMyOrderQuery } from "../../redux/Api/orderApiSlice"
-import Loader from "../../component/Loader";
+import { useGetMyOrderQuery } from "../../redux/Api/orderApiSlice.js"
+import Loader from "../../component/Loader.jsx";
 
 const UserOrder = () => {
 
     const {data:orders, isLoading, error} = useGetMyOrderQuery();
-
-    console.log(orders)
-
   return (
     <div className=" container mx-auto">
         <h2 className="text-2xl font-semibold mb-4">Order</h2>
