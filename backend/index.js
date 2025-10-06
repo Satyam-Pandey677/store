@@ -2,11 +2,16 @@ import express from "express";
 import { connectDB } from "./config/db.js";
 import cookieParser from "cookie-parser";
 import path from "path";
+import cors from "cors";
 
 const app = express()
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
+app.use(cors({
+  origin: ['https://your-frontend-domain.onrender.com'], // frontend ka URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+}));
 const port = process.env.PORT
 connectDB()
 
