@@ -22,6 +22,7 @@
   "homepage": "https://github.com/Satyam-Pandey677/store#readme",
   "dependencies": {
     "@paypal/react-paypal-js": "^8.9.1",
+    "apexcharts": "^5.3.5",
     "bcryptjs": "^3.0.2",
     "concurrently": "^9.1.2",
     "cookie-parser": "^1.4.7",
@@ -36,6 +37,7 @@
     "multer": "^2.0.1",
     "nodemon": "^3.1.10",
     "path": "^0.12.7",
+    "react-apexcharts": "^1.7.0",
     "react-slick": "^0.30.3"
   }
 }

@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 
 const MyAdminRoute = () => {
   const { userInfo } = useSelector((state) => state.auth);
-  console.log(userInfo);
   return userInfo && userInfo.data.isAdmin ? (
     <Outlet />
   ) : (
