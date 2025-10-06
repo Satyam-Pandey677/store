@@ -9,8 +9,9 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
 app.use(cors({
-  origin: ['https://store-1-33c5.onrender.com'], // frontend ka URL
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  origin: 'https://store-1-33c5.onrender.com', // single URL fine
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  credentials: true
 }));
 const port = process.env.PORT
 connectDB()
