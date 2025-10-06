@@ -11,7 +11,7 @@ export default defineConfig({
   server: {
   proxy: {
     '/api': {
-      target: 'https://store-xe8y.onrender.com',
+      target: 'https://store-1-33c5.onrender.com',
       changeOrigin: true,
       secure: false,
     },
