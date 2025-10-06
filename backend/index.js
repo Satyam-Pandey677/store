@@ -9,7 +9,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
 app.use(cors({
-  origin: ['https://your-frontend-domain.onrender.com'], // frontend ka URL
+  origin: ['https://store-1-33c5.onrender.com'], // frontend ka URL
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
 }));
 const port = process.env.PORT
