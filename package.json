@@ -24,6 +24,7 @@
     "@paypal/react-paypal-js": "^8.9.1",
     "apexcharts": "^5.3.5",
     "bcryptjs": "^3.0.2",
+    "cloudinary": "^2.7.0",
     "concurrently": "^9.1.2",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
