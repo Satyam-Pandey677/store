@@ -12,6 +12,7 @@ app.use(cors({
   origin: [
     "http://localhost:5173",
     "https://store-1-33c5.onrender.com",
+    
   ],
   credentials: true,
 }));
