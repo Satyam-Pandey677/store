@@ -38,7 +38,7 @@ router.post("/", (req, res) => {
             res.status(200)
             .send({
                 message: "Image uploaded succesfully",
-                image:image.url
+                image:image.secure_url
             })
         }else{
             throw new ApiError(400, "No File Provided")
