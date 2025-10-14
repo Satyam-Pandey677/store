@@ -33,8 +33,6 @@ router.post("/", (req, res) => {
             res.status(400).send({message: err.message})
         }else if(req.file){
             const image = await uploadOnCloudinary(req.file)
-            console.log(image)
-            
             res.status(200)
             .send({
                 message: "Image uploaded succesfully",

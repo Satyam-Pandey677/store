@@ -13,9 +13,9 @@ import AdminMenu from "./AdminMenu";
 
 const UpdateProduct = () => {
   const {id} = useParams();
+  console.log(id)
   const { data: productData } = useGetProductByIdQuery(id);
-
-  console.log(id);
+  console.log(productData)
 
   const [image, setImage] = useState(productData ? productData.data.image : "");
   const [name, setName] = useState(productData ? productData.name : "");
@@ -59,7 +59,7 @@ const UpdateProduct = () => {
       formData.append("image", e.target.files[0])
 
       try {
-        const res = await uploadFileHandler(formData)
+        const res = await uploadProductImage(formData)
         toast.success("item added successfully")
         setImage(res.image)
       } catch (error) {
@@ -104,16 +104,17 @@ const UpdateProduct = () => {
         if(!answer) return ;
 
         const {data} = await deleteProduct(id)
+        console.log(data)
         if(data.error){
             toast.error(data.error)
           }else{
-            toast.success(`${data.data.name} is deleted`)
+            toast.success(`${data?.data.name} is deleted`)
             navigate("/admin/allproductlist")
           }
         
       } catch (error) {
         toast.error("Product Delete is fails")
-            console.log(err.response.data.error)
+            console.log(error.response.data.error)
       }
   } 
 
@@ -160,7 +161,7 @@ const UpdateProduct = () => {
                   type="text"
                   name="name"
                   className="p-4 mb-3 w-[30rem] border rounded-lg bg-[#fff]"
-                  value={name}
+                  value={name?? ""}
                   onChange={(e) => setName(e.target.value)}
                 />
               </div>
@@ -171,7 +172,7 @@ const UpdateProduct = () => {
                   type="number"
                   name="name"
                   className="p-4 mb-3 w-[30rem] border rounded-lg bg-[#fff]"
-                  value={price}
+                  value={price?? ""}
                   onChange={(e) => setPrice(e.target.value)}
                 />
               </div>
@@ -185,7 +186,7 @@ const UpdateProduct = () => {
                   type="number"
                   name="name"
                   className="p-4 mb-3 w-[30rem] border rounded-lg bg-[#fff]"
-                  value={quantity}
+                  value={quantity?? ""}
                   onChange={(e) => setQuantity(e.target.value)}
                 />
               </div>
@@ -196,7 +197,7 @@ const UpdateProduct = () => {
                   type="text"
                   name="name"
                   className="p-4 mb-3 w-[30rem] border rounded-lg bg-[#fff]"
-                  value={brand}
+                  value={brand?? ""}
                   onChange={(e) => setBrand(e.target.value)}
                 />
               </div>
@@ -207,7 +208,7 @@ const UpdateProduct = () => {
             </label>
             <textarea
               className="p-2 mb-3 border rounded-lg w-[95%]"
-              value={discription}
+              value={discription?? ""}
               onChange={(e) => setDiscription(e.target.value)}
             ></textarea>
 
@@ -218,7 +219,7 @@ const UpdateProduct = () => {
                 <input
                   type="text"
                   className="p-4 mb-3 w-[30rem] border rounded-lg"
-                  value={stock}
+                  value={stock?? ""}
                   onChange={(e) => setStock(e.target.value)}
                 />
               </div>
