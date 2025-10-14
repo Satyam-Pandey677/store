@@ -4,6 +4,7 @@ import multer from "multer";
 import { ApiError } from "../utils/ApiError.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
+
 const router = Router()
 
 const storage = multer.diskStorage({
@@ -40,6 +41,7 @@ router.post("/", (req, res) => {
         }else if(req.file){
             const image = await uploadOnCloudinary(req.file.path)
             console.log(image)
+            
             res.status(200)
             .send({
                 message: "Image uploaded succesfully",
