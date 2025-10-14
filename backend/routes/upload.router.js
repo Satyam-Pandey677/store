@@ -3,19 +3,12 @@ import  { Router } from "express";
 import multer from "multer";
 import { ApiError } from "../utils/ApiError.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
+import { Readable } from "stream";
 
 
 const router = Router()
 
-const storage = multer.diskStorage({
-    destination:(req, file,cb) => {
-        cb(null, "uploads/")
-    },
-    filename: (req, file, cb ) => {
-        const extname = path.extname(file.originalname)
-        cb(null, `${file.fieldname}-${Date.now()}${extname}`)
-    }
-})
+const storage = multer.memoryStorage()
 
 const fileFilter =  (req,file, cb) => {
     const filetypes = /jpeg|jpg|png|webp/;
@@ -39,7 +32,7 @@ router.post("/", (req, res) => {
         if(err){
             res.status(400).send({message: err.message})
         }else if(req.file){
-            const image = await uploadOnCloudinary(req.file.path)
+            const image = await uploadOnCloudinary(req.file)
             console.log(image)
             
             res.status(200)
