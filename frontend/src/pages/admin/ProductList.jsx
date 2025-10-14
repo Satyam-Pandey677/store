@@ -59,9 +59,7 @@ const ProductList = () => {
       productData.append('quantity', quantity)
       productData.append('countInStock', stock)
 
-
       const {data} = await createProduct(productData)
-
       if(data.error){
         toast.error("Product creation is fails")
       }else{
@@ -71,7 +69,7 @@ const ProductList = () => {
       
     } catch (error) {
         toast.error("Product creation is fails")
-        console.log(err.response.data.error)
+        console.log(error.response.data.error)
 
     }
   }

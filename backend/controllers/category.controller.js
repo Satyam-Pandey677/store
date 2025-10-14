@@ -88,7 +88,6 @@ const getAllCategories = asyncHandler(async(req, res) => {
 const readCategory =asyncHandler(async(req, res) => {
     const {id} = req.params
 
-    console.log(id )
 
     const category = await Category.findOne({_id:id})
 

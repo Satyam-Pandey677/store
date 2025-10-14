@@ -2,9 +2,9 @@ import express from "express";
 import { connectDB } from "./config/db.js";
 import cookieParser from "cookie-parser";
 import path from "path";
-import cors from "cors";
 
 const app = express()
+
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
@@ -21,6 +21,8 @@ app.use("/api/category", categoryRouter)
 app.use("/api/products",productRouter)
 app.use("/api/upload", uploadRouter)
 app.use("/api/order", orderRouter)
+
+
 
 app.get("/api/config/paypal", (req, res) => {
     res.send({clientId: process.env.PAYPAL_CLIENT_ID});

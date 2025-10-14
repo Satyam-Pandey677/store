@@ -6,7 +6,6 @@ import {toast} from "react-toastify"
 import HeartIcon from "./HeartIcon"
 
 const ProductCard = ({p}) => {
-    console.log(p)
     const dispatch = useDispatch()
 
     const addToCartHandler = (product, qty) => {

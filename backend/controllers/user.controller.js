@@ -117,8 +117,6 @@ const deleteUserById = asyncHandler(async (req, res) => {
     if (user.isAdmin) {
       throw new ApiError(400, "Cannot delete Admin");
     }
-
-    console.log(user._id);
     const deleteUser = await User.deleteOne({ _id: user._id });
 
     return res
