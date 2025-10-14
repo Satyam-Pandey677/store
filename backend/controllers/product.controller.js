@@ -4,7 +4,9 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 
 const AddProduct = asyncHandler(async(req, res) => {
-  const {name, discription, price, category, quantity, brand} = req.fields;
+  const {name, discription, price, category, quantity, brand,image} = req.fields;
+
+  console.log(name, discription, price, category, quantity, brand, image)
 
   if(!name || !discription || !price || !category || !quantity || !brand){
     throw new ApiError(500, "All fields are required" )
@@ -65,7 +67,6 @@ const getAllproduct = asyncHandler(async(req, res) => {
      const pageSize = 6;
      const keyword = req.query.keyword ? 
          {name: {$regex : req.query.keyword, $options:"i"}}: {};
-    console.log(keyword)
      
      const count = await Product.countDocuments({...keyword});
      const product = await Product.find({...keyword}).limit(pageSize)
@@ -114,7 +115,6 @@ const fetchAllProducts = asyncHandler(async(req, res) => {
 
 const addProductReview = asyncHandler(async(req, res) => {
     const {rating, comment} = req.body
-    console.log(rating)
     const product = await Product.findById(req.params.id)
     if(product){
         const alreadyReviewed = product.review.find(r => r.user.toString() === req.user._id.toString() )

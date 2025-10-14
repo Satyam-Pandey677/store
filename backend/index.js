@@ -2,19 +2,12 @@ import express from "express";
 import { connectDB } from "./config/db.js";
 import cookieParser from "cookie-parser";
 import path from "path";
-import cors from "cors";
 
 const app = express()
+
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
-app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://store-1-33c5.onrender.com",
-  ],
-  credentials: true,
-}));
 const port = process.env.PORT
 connectDB()
 
@@ -29,13 +22,14 @@ app.use("/api/products",productRouter)
 app.use("/api/upload", uploadRouter)
 app.use("/api/order", orderRouter)
 
+
+
 app.get("/api/config/paypal", (req, res) => {
     res.send({clientId: process.env.PAYPAL_CLIENT_ID});
 })
 
 const __dirname = path.resolve()
-console.log(__dirname)
-app.use('/uploads', express.static(path.join(__dirname + '/uploads')))
+// app.use('/uploads', express.static(path.join(__dirname + '/uploads')))
 
 app.listen(port, () => {
     console.log("Server running at Port : ",port)

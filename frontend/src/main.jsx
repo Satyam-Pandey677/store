@@ -41,7 +41,7 @@ const router = createBrowserRouter(
       <Route path="/product/:id" element= {<ProductDetails/>}/>
       <Route path="/cart" element={<Cart/>}/>
       <Route path="/shop" element={<Shop/>}/>
-      <Route path="/user-orders" element ={<UserOrder/>}/>
+      <Route path="/user-order" element ={<UserOrder/>}/>
 
       <Route path="" element={<PrivateRoute />}>
         <Route path="/profile" element={<Profile />} />

@@ -52,15 +52,7 @@ const createOrder = asyncHandler(async(req, res) => {
                 _id:undefined
             }
             })
-
-           
-
             const {itemsPrice, taxPrice, shippingPrice, totalPrice} = calcPrices(dbOrderItems)
-
-            console.log(calcPrices(dbOrderItems))
-
-            console.log(typeof totalPrice)
-            console.log(itemsPrice)
 
             const order = new Order({
                 orderItems: dbOrderItems,

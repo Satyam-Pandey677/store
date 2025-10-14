@@ -62,6 +62,8 @@ const AdminDashboard = () => {
         series: [{name:"Sales", data:[]}]
     })
 
+    console.log(orders)
+
 
     useEffect(()=> {
         if(salesDetail){   
@@ -71,7 +73,7 @@ const AdminDashboard = () => {
             }))
             setState((prevState) => ({
                 ...prevState,
-                option:{
+                options:{
                     ...prevState.option,
                     xaxis:{
                         categories: formatedSaleDetails.map((item) => item.x)

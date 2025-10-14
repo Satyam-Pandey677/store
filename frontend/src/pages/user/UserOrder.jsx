@@ -25,7 +25,10 @@ const UserOrder = () => {
             <tbody>
               {orders.map((order) => (
                 <tr key={order._id}>
+                  <td>
+
                   <img src={order.orderItems[0].image} alt={order.user} className="w-[6rem]" />
+                  </td>
 
                   <td className="py-2 ">{order._id}</td>
                   <td className="py-2 ">{order.createdAt.substring(0,10)}</td>

@@ -31,10 +31,10 @@ const ProductList = () => {
     
     const formData = new FormData()
     formData.append('image', e.target.files[0])
-
     try {
 
       const res= await uploadProductImage(formData).unwrap()
+      console.log(res)
       toast.success(res.message)
       setImage(res.image)
       setImageURL(res.image)
@@ -59,9 +59,7 @@ const ProductList = () => {
       productData.append('quantity', quantity)
       productData.append('countInStock', stock)
 
-
       const {data} = await createProduct(productData)
-
       if(data.error){
         toast.error("Product creation is fails")
       }else{
@@ -71,7 +69,7 @@ const ProductList = () => {
       
     } catch (error) {
         toast.error("Product creation is fails")
-        console.log(err.response.data.error)
+        console.log(error.response.data.error)
 
     }
   }

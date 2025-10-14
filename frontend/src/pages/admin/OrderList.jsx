@@ -6,7 +6,6 @@ import AdminMenu from "./AdminMenu";
 
 const OrderList = () => {
   const { data: orders, isLoading, error } = useGetOrdersQuery();
-  console.log(orders);
 
   return (
     <>
@@ -15,8 +14,9 @@ const OrderList = () => {
       ) : error ? (
         <Message variant="danger">{error?.data?.error || error.error}</Message>
       ) : (
-        <table className="container mx-auto">
+        <>
           <AdminMenu />
+        <table className="container mx-auto">
 
           <thead className="w-full border">
             <tr className="mb-[5rem]">
@@ -74,6 +74,7 @@ const OrderList = () => {
             ))}
           </tbody>
         </table>
+        </>
       )}
     </>
   );
