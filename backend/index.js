@@ -3,6 +3,7 @@ import { connectDB } from "./config/db.js";
 import cookieParser from "cookie-parser";
 import path from "path";
 import cors from "cors"
+import { fileURLToPath } from "url";
 
 const app = express()
 app.use(cors({
@@ -31,6 +32,10 @@ app.use("/api/order", orderRouter)
 app.get("/api/config/paypal", (req, res) => {
     res.send({clientId: process.env.PAYPAL_CLIENT_ID});
 })
+
+//this section for
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 app.use(express.static(path.join(__dirname, 'dist')));
 
