@@ -30,6 +30,7 @@ const Order = () => {
   const [deliverOrder, { isLoading: loadingDeliver }] =
     useDeliverOrderMutation();
   const userInfo = useSelector((state) => state.auth);
+  console.log(userInfo)
 
   const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
 
@@ -202,6 +203,10 @@ const Order = () => {
               <Loader />
             ) : (
               <div>
+              {userInfo.userInfo.data.isAdmin? 
+             ( <h1 className="text-3xl text-pink-500">Not Paid</h1>)
+               :
+             ( <div>
                 <div>
                   <PayPalButtons
                   createOrder={createOrder}
@@ -209,6 +214,8 @@ const Order = () => {
                   onError={onError}
                   ></PayPalButtons>
                 </div>
+              </div>)
+              }
               </div>
             )}
           </div>
