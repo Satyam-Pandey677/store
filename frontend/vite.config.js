@@ -11,13 +11,10 @@ export default defineConfig({
   server: {
   proxy: {
     '/api': {
-      target: 'http://localhost:4000',
+      target: 'https://store-5w0m.onrender.com',
       changeOrigin: true,
       secure: false,
     },
-    '/uploads/' : {
-      target: 'http://localhost:4000',
-    }
   },
 },
 })
