@@ -35,12 +35,14 @@ app.get("/api/config/paypal", (req, res) => {
 
 //this section for
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = path.dirname(__filename); 
 
-app.use(express.static(path.join(__dirname, '../frontend/dist')));
+// Serve React frontend build
+app.use(express.static(path.join(__dirname, 'dist')));
 
-app.use((req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
+// React Router fallback
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 
