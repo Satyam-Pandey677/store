@@ -13,9 +13,7 @@ import AdminMenu from "./AdminMenu";
 
 const UpdateProduct = () => {
   const {id} = useParams();
-  console.log(id)
   const { data: productData } = useGetProductByIdQuery(id);
-  console.log(productData)
 
   const [image, setImage] = useState(productData ? productData.data.image : "");
   const [name, setName] = useState(productData ? productData.name : "");
@@ -104,7 +102,6 @@ const UpdateProduct = () => {
         if(!answer) return ;
 
         const {data} = await deleteProduct(id)
-        console.log(data)
         if(data.error){
             toast.error(data.error)
           }else{

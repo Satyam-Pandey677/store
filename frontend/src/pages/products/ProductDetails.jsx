@@ -31,7 +31,6 @@ const ProductDetails = () => {
   const userInfo = useSelector(state => state.auth)
   useEffect(() => {
     setProduct(productData?.data)
-    console.log(productData?.data)
   },[productData])
 
   const [createReview, {isLoading:loadingProductReview}] = useReviewProductMutation()

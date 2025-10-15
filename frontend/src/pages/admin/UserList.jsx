@@ -8,7 +8,6 @@ import Message from "../../component/Message"
 
 const UserList = () => {
     const {data:users , refetch, isLoading, error } = useGetUsersQuery()
-    console.log(users?.data)
 
     const [deleteUser] = useDeleteUserMutation()
     const [updateUser] = useUpdateUserMutation()
@@ -22,7 +21,6 @@ const UserList = () => {
     }, [refetch]);
 
     const deleteHandler = async (id) => {
-         console.log(id)
         if(window.confirm("Are you sure?")){
             try {
                 const res = await deleteUser(id)
@@ -41,7 +39,6 @@ const UserList = () => {
 
 
     const updateHandler = async (id) => {
-        console.log(id)
         try {
             await updateUser({
                 userId : id.trim(),

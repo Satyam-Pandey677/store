@@ -62,8 +62,6 @@ const AdminDashboard = () => {
         series: [{name:"Sales", data:[]}]
     })
 
-    console.log(orders)
-
 
     useEffect(()=> {
         if(salesDetail){   

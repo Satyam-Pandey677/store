@@ -9,7 +9,6 @@ const AllProducts = () => {
 
   const navigate = useNavigate();
 
-  console.log(products);
   if (isLoading) {
     return <Loader />;
   }

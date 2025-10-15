@@ -30,7 +30,6 @@ const CategoryList = () => {
                 toast.error(result.error)
             }else{
                 setName('')
-                console.log(result)
                 toast.success(`${result.data.name} Is Created`)
             }
         } catch (error) {
@@ -54,7 +53,6 @@ const CategoryList = () => {
             if(result.error){
                 toast.error(result.error)
             }
-            console.log(result)
             toast.success(`${result.data.name} is updated`)
             setSelectedCategory(null)
             setUpdatingName("")
