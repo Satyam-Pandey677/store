@@ -3,7 +3,6 @@ import { connectDB } from "./config/db.js";
 import cookieParser from "cookie-parser";
 import path from "path";
 import cors from "cors"
-import { fileURLToPath } from "url";
 
 const app = express()
 app.use(cors({
@@ -33,18 +32,8 @@ app.get("/api/config/paypal", (req, res) => {
     res.send({clientId: process.env.PAYPAL_CLIENT_ID});
 })
 
-//this section for
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename); 
-
-// Serve React frontend build
-app.use(express.static(path.join(__dirname, 'dist')));
-
-// React Router fallback
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-});
-
+const __dirname = path.resolve()
+// app.use('/uploads', express.static(path.join(__dirname + '/uploads')))
 
 app.listen(port, () => {
     console.log("Server running at Port : ",port)
