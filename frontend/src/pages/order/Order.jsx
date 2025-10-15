@@ -204,7 +204,7 @@ const Order = () => {
             ) : (
               <div>
               {userInfo.userInfo.data.isAdmin? 
-             ( <h1 className="text-3xl text-pink-500">Not Paid</h1>)
+              (<h1 className="text-3xl text-pink-500">Not Paid</h1>)
                :
              ( <div>
                 <div>
