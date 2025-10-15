@@ -2,9 +2,13 @@ import express from "express";
 import { connectDB } from "./config/db.js";
 import cookieParser from "cookie-parser";
 import path from "path";
+import cors from "cors"
 
 const app = express()
-
+app.use(cors({
+    origin:["https://store-1-y4sw.onrender.com"],
+    credentials:true
+}))
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
