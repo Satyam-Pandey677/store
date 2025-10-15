@@ -18,6 +18,6 @@ export default defineConfig({
   },
   },
   build:{
-    outDir:'../backend/dist'
+    outDir:'./dist'
   }
 })
