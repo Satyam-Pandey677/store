@@ -62,7 +62,7 @@ const Navigation = () => {
             HOME
           </span>{" "}
         </Link>
-        <Link
+        <Link 
           to="/shop"
           className="flex items-center transition-transform transform hover:translate-x-2"
         >
