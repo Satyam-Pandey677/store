@@ -88,6 +88,7 @@ const CategoryList = () => {
             <CategoryForm value={name} setValue={setName} handleSubmit={handleCreateCategory}/>
             <br />
             <hr />
+            
             <div className="flex flex-wrap">
                 {categories?.data?.map((category) => (
                     <div key={category._id}>
