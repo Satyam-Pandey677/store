@@ -7,7 +7,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
-import { Link } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export function NavProjects({
   projects
@@ -21,7 +21,7 @@ export function NavProjects({
         {projects.map((item) => (
           <SidebarMenuItem key={item.name}>
             <SidebarMenuButton asChild>
-              <Link to={`/${item.url}`}>
+              <Link to={`${item.url}`}>
                 <item.icon />
                 <span>{item.name}</span>
               </Link>
