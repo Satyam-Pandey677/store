@@ -11,7 +11,7 @@ const Home = () => {
   
   
   return (
-    <>
+    <div className='ml-10'>
       {!keyword ? <Header/> : null }
       {isLoading ? (<Loader/>): isError ? (<Message variant='danger'>{isError.error}</Message>):(
         <>
@@ -34,7 +34,7 @@ const Home = () => {
             </div>
         </>
       )  }
-    </>
+    </div>
   )
 }
 
