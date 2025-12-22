@@ -35,7 +35,7 @@ const ProductCrousel = () => {
       ) : (
         <Slider
           {...settings}
-          className="xl:w-[75rem] lg:w-[50rem] md:w-[56rem] sm:w-[40rem] sm:block"
+          className="xl:w-300 lg:w-200 md:w-4xl sm:w-160 sm:block"
         >
           {data?.data.map(
             ({
@@ -56,43 +56,12 @@ const ProductCrousel = () => {
                 <img
                   src={image}
                   alt={name}
-                  className="w-full rounded-lg object-cover h-[30rem] z-0"
+                  className="w-full rounded-lg object-cover h-120 z-0"
                 />
                 <div className="absolute bottom-6 left-6 bg-black/60 z-20 text-white px-4 py-2 rounded-md">
                   <h2 className="text-xl font-bold">{name}</h2>
                 </div>
                 </div>
-                {/* <div className="flex justify-between w-[20rem]">
-                            <div className="one">
-                                <p>${price}</p> <br />
-                                <p className="w-[25rem]">{discription.substring(0,170)}...</p>
-                            </div>
-                            <div className="flex justify-between w-[20rem]">
-                                <div className="one">
-                                    <h1 className="flex items-center mb-6 w-[8rem]">
-                                        <FaStore className="mr-2"/> Brand: {brand}
-                                    </h1>
-                                    <h1 className="flex items-center mb-6 w-[10rem]">
-                                        <FaClock className="mr-2"/> Added:{" "} {moment(createdAt).fromNow()}
-                                    </h1>
-                                    <h1 className="flex items-center mb-6 w-[8rem]">
-                                        <FaStar className="mr-2"/> Reviews: {numReviews}
-                                    </h1>
-                                </div>
-
-                                <div className="two">
-                                    <h1 className="flex item-center mb-6 w-[7rem]">
-                                        <FaStar className="mr-2 mt-1 "/> Ratings:{" "} {Math.round(rating)}
-                                    </h1>
-                                    <h1 className="flex item-center mb-6 w-[7rem]">
-                                        <FaShoppingCart className="mr-2 mt-1 "/> Quantity:{" "} {quantity}
-                                    </h1>
-                                    <h1 className="flex item-center mb-6 w-[7rem]">
-                                        <FaBox className="mr-2 mt-1 "/> In Stock:{" "} {countInStock}
-                                    </h1>
-                                </div>
-                            </div>
-                        </div> */}
               </div>
             )
           )}
