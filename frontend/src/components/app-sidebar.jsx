@@ -25,7 +25,7 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar"
 import { useDispatch, useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import { redirect, useNavigate } from "react-router-dom"
 import { useLogoutMutation } from "../redux/Api/apiUserSlice"
 import { useState } from "react"
 
@@ -78,7 +78,12 @@ export function AppSidebar({
 
   
   const { userInfo } = useSelector((state) => state.auth);
-    const {cartItems }= useSelector((state) => state.cart) 
+    const {cartItems }= useSelector((state) => state.cart)
+    
+    
+    if(!userInfo){
+      redirect("/login");
+    }
 
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [showSideBar, setShowSideBar] = useState(false);
