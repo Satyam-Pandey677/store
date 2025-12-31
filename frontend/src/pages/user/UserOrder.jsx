@@ -7,7 +7,7 @@ const UserOrder = () => {
 
     const {data:orders, isLoading, error} = useGetMyOrderQuery();
   return (
-    <div className=" container mx-auto">
+    <div className=" container mx-auto pl-2.5">
         <h2 className="text-2xl font-semibold mb-4">Order</h2>
 
         {isLoading ? (<Loader/>) : error ? (<Message variant='danger'>{error?.data?.error || error.error}</Message>):(
