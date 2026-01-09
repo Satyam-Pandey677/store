@@ -103,7 +103,14 @@ const updateProduct = asyncHandler(async(req,res) => {
 })
 
 const fetchAllProducts = asyncHandler(async(req, res) => {
-    const products = await Product.find({}).populate("category").limit(3)
+
+    const page = Number(req.query.page);
+    const limit  = Number(req.query.limit);
+    const skip = (page - 1) * limit
+
+    const products = await Product.find({}).populate("category")
+                    .skip(skip)
+                    .limit(3)
 
     return res.status(200)
     .json(new ApiResponse(
