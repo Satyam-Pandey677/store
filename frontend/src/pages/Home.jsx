@@ -11,7 +11,7 @@ const Home = () => {
   
   
   return (
-    <>
+    <div className='ml-10'>
       {!keyword ? <Header/> : null }
       {isLoading ? (<Loader/>): isError ? (<Message variant='danger'>{isError.error}</Message>):(
         <>
@@ -20,12 +20,12 @@ const Home = () => {
               Speacial Products
             </h1>
 
-            <Link to="/shop" className='bg-pink-600 font-bold rounded-full py-2 px-10 mr-[18rem] mt-[10rem]'>
+            <Link to="/shop" className='bg-pink-600 font-bold rounded-full py-2 px-10 mr-72 mt-40'>
                 Shop
             </Link>
             </div>
 
-            <div className="flex justify-center flex-wrap mt-[2rem]">
+            <div className="flex justify-center flex-wrap mt-8">
               {data.product.map((product) => (
                 <div key={product._id}>
                   <Product product={product}/>
@@ -34,7 +34,7 @@ const Home = () => {
             </div>
         </>
       )  }
-    </>
+    </div>
   )
 }
 
