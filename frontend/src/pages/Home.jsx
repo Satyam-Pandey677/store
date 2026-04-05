@@ -16,7 +16,7 @@ const Home = () => {
       {isLoading ? (<Loader/>): isError ? (<Message variant='danger'>{isError.error}</Message>):(
         <>
           <div className="flex justify-between items-center">
-            <h1 className='ml-[20rem] mt-[10rem] text-[3rem]'>
+            <h1 className='ml-80 mt-40 text-[3rem]'>
               Speacial Products
             </h1>
 
