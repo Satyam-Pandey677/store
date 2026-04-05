@@ -2,7 +2,7 @@ import { Router } from "express";
 import { authenticate, authorizeAdmin } from "../middleware/auth.middleware.js";
 import checkId from "../middleware/checkId.miiddleware.js";
 import formidable from "express-formidable"
-import { AddProduct, deleteProduct, fetchAllProducts, getAllproduct, getProductById, updateProduct, addProductReview, getTopProducts, getNewProduct, filterProducts } from "../controllers/product.controller.js";
+import { AddProduct, deleteProduct, fetchAllProducts, getAllproduct, getProductById, updateProduct, addProductReview, getTopProducts, getNewProduct, filterProducts, searchProduct } from "../controllers/product.controller.js";
 import { upload } from "./upload.router.js";
 
 const router = Router()
@@ -12,6 +12,8 @@ router.route("/")
     .get(getAllproduct)
 
 router.route("/allproducts").get(fetchAllProducts)
+
+router.route("/search").get(searchProduct)
 
 router.route("/:id/review").post(authenticate, addProductReview)
 

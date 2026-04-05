@@ -4,6 +4,7 @@ import Loader from '../component/Loader';
 import Header from '../component/Header';
 import Message from '../component/Message';
 import Product from './products/Product';
+import SearchbarHeader from '../component/SearchbarHeader';
 
 const Home = () => {
   const {keyword} = useParams()
@@ -12,6 +13,7 @@ const Home = () => {
   
   return (
     <div className='ml-10'>
+      <SearchbarHeader/>
       {!keyword ? <Header/> : null }
       {isLoading ? (<Loader/>): isError ? (<Message variant='danger'>{isError.error}</Message>):(
         <>

@@ -188,4 +188,25 @@ const filterProducts = asyncHandler(async(req, res) => {
     }
 })
 
-export { AddProduct, deleteProduct, getProductById, getAllproduct, updateProduct, fetchAllProducts, addProductReview, getTopProducts, getNewProduct, filterProducts };
+const searchProduct = asyncHandler(async(req, res)=> {
+    try {
+        
+        const keyword = req.query.search ? {
+            $or:[
+                {name:{$regex: req.query.search, $options:"i"}},
+                {brand:{$regex:req.query.search, $options:"i"}}
+            ]
+        }:{}
+
+        console.log(keyword)
+
+        const product = await Product.find(keyword);
+
+        res.send(product)
+
+    } catch (error) {
+        
+    }
+})
+
+export { AddProduct, deleteProduct, getProductById, getAllproduct, updateProduct, fetchAllProducts, addProductReview, getTopProducts, getNewProduct, filterProducts, searchProduct };
