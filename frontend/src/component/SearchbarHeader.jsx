@@ -14,7 +14,7 @@ const SearchbarHeader = () => {
 
   const handleSearch = async(value) => {
     console.log(value);
-    const res = await fetch(`http://localhost:4000/api/products/search?search=${value}`);
+    const res = await fetch(`https://store-5w0m.onrender.com/api/products/search?search=${value}`);
     const data = await res.json();
     console.log(data)
     setProductList(data)
@@ -25,7 +25,6 @@ const SearchbarHeader = () => {
     
 
   const handleChange = (e) => {
-
      if (!e.target.value.trim()) {
     setProductList([]); // clear UI
     return;
