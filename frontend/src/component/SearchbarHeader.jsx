@@ -1,8 +1,6 @@
-import React, { useMemo, useState } from "react";
+import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import debounce from "lodash/debounce"
-import { useSearchProductQuery } from "../redux/Api/productApiSlice";
-import { PRODUCT_URL } from "../redux/constants";
 import { Link } from "react-router-dom";
 
 const SearchbarHeader = () => {
