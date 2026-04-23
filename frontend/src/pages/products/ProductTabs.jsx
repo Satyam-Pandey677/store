@@ -22,7 +22,7 @@ const ProductTabs = ({loadingProductReview, userInfo, submitHandler, rating, set
 
   return (
     <div className='flex flex-col md:flex-row'>
-        <section className='mr-[5rem] '>
+        <section className='mr-20 '>
             <div className={`flex p-4 cursor-pointer text-lg ${activeTab == 1? 'font-bold' : ""}`} onClick={() => handleTabClick(1)}>
                 Write your review
             </div>
@@ -46,7 +46,7 @@ const ProductTabs = ({loadingProductReview, userInfo, submitHandler, rating, set
                                 <select id="rating" required
                                    value={rating} 
                                    onChange={e => setRating(e.target.value)}
-                                   className='p-2 border rounded-lg xl:w-[40rem] text-block'
+                                   className='p-2 border rounded-lg xl:w-160 text-block'
                                 >
                                     <option value="">Select</option>
                                     <option value="1">Inferior</option>
@@ -59,7 +59,7 @@ const ProductTabs = ({loadingProductReview, userInfo, submitHandler, rating, set
 
                             <div className='my-2'>
                                 <label htmlFor="comment" className='block textxl mb-2'>
-                                    <textarea id='comment' required value={comment} placeholder='Enter your review in this product' onChange={e => setComment(e.target.value)} className='p-2 border rounded-lg xl:w-[40rem] text-block'></textarea>
+                                    <textarea id='comment' required value={comment} placeholder='Enter your review in this product' onChange={e => setComment(e.target.value)} className='p-2 border rounded-lg xl:w-160 text-block'></textarea>
                                 </label>
                             </div>
                             <button type='submit' disabled={loadingProductReview} className='bg-pink-600 text-white py-2 px-4 rounded-lg'>Submit</button>
@@ -78,7 +78,7 @@ const ProductTabs = ({loadingProductReview, userInfo, submitHandler, rating, set
 
                 <div>
                     {product.review.map((review) => (
-                        <div key={review._id} className='border rounded-full p-4 rounded-lg xl:ml-[2rem] sm:ml-[0rem] xl:w-[0rem] xl:w-[50rem] sm:w-[24rem] mb-5'>
+                        <div key={review._id} className='border rounded-full p-4 xl:ml-8 sm:ml-0 xl:w-200 sm:w-[24rem] mb-5'>
                             <div className="flex justify-between">
                                 <strong className='text-[#B0b0b0b0]'>{review.name}</strong>
                                 <p className='text-[#B0b0b0b0]'>{review.createdAt.substring(0,10)}</p>
@@ -95,7 +95,7 @@ const ProductTabs = ({loadingProductReview, userInfo, submitHandler, rating, set
 
         <section>
             {activeTab == 3 && (
-                <section className='ml-[4rem] flex flex-wrap'>
+                <section className='ml-16 flex flex-wrap'>
                     {!data ? (
                         <Loader/>
                     ): (
