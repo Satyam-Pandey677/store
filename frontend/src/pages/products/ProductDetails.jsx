@@ -62,52 +62,52 @@ const ProductDetails = () => {
   
 
   return (
-    <div className="px-[9rem] ">
-    <div className="mt-[3rem] flex justify-center gap-10">
-        <div className="relative w-[50rem]">
+    <div className="px-36 ">
+    <div className="mt-12 flex justify-center gap-10">
+        <div className="relative w-200">
         <img
           src={product.image}
           alt={product.name}
-          className="w-[50rem] rounded"
+          className="w-200 rounded"
         />
         <HeartIcon product={product} />
       </div>
-      <div className="w-[50rem] p-5">
+      <div className="w-20 p-5">
         <h1 className="text-[50px]">{product.name}</h1>
         <span className="text-[25px] text-gray-400">{product.brand}</span>
 
-        <hr className="my-[2rem] " />
+        <hr className="my-8 " />
         <h1 className="text-[35px] font-bold text-gray-600">
           $ {product.price}
         </h1>
         <span className="text-gray-600">incl. of all taxes</span>
 
         <div className=" flex gap-25 ">
-        <div className="flex justify-between w-[20rem] mt-[2rem] gap-15">
+        <div className="flex justify-between w-[20rem] mt-8 gap-15">
           <div className="one">
             
-            <h1 className="flex items-center mb-6 w-[10rem]">
+            <h1 className="flex items-center mb-6 w-40">
               <FaClock className="mr-2" /> Added:{" "}
               {moment(product.createdAt).fromNow()}
             </h1>
-            <h1 className="flex items-center mb-6 w-[8rem]">
+            <h1 className="flex items-center mb-6 w-32">
               <FaStar className="mr-2" /> Reviews: {product.numReviews}
             </h1>
           </div>
 
           <div className="two">
-            <h1 className="flex item-center mb-6 w-[7rem]">
+            <h1 className="flex item-center mb-6 w-28">
               <FaStar className="mr-2 mt-1 " /> Ratings:{" "}
               {Math.round(product.rating)}
             </h1>
-            <h1 className="flex item-center mb-6 w-[7rem]">
+            <h1 className="flex item-center mb-6 w-28">
               <FaShoppingCart className="mr-2 mt-1 " /> Quantity:{" "}
               {product.countInStock > 0 && (
                     <div>
                         <select
                             value={qty}
                             onChange={(e) => setQty(e.target.value)}
-                            className="p-2 w-[6rem] rounded-lg text-black"
+                            className="p-2 w-24 rounded-lg text-black"
                             >
                                 {[...Array(product.countInStock).keys()].map((x) => (
                                     <option key={x+1} value={x+1} className="outline">
@@ -119,7 +119,7 @@ const ProductDetails = () => {
                     </div>
               )}
             </h1>
-            <h1 className="flex item-center mb-6 w-[7rem]">
+            <h1 className="flex item-center mb-6 w-28">
               <FaBox className="mr-2 mt-1 " /> In Stock: {product.countInStock}
             </h1>
           </div>
@@ -139,7 +139,7 @@ const ProductDetails = () => {
       </div>
     </div>
     
-    <div className="mt-[5rem] container flex flex-wrap item-start justify-between ml-[10rem]">
+    <div className="mt-20 container flex flex-wrap item-start justify-between ml-40">
       <ProductTabs 
         loadingProductReview={loadingProductReview} 
         userInfo={userInfo}

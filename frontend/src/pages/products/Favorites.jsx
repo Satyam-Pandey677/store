@@ -12,15 +12,15 @@ const Favorites = () => {
 
 
   return (
-    <div className="px-[9rem] mt-[5rem]">
+    <div className="px-36 mt-20">
       <div className="flex gap-5">
         <h1 className="text-[50px] font-bold">Wishlist </h1>
         <AiFillShopping
-          className="mt-[1rem] text-black"
+          className="mt-4 text-black"
           size={50}
         />
       </div>
-      <div className="flex flex-wrap gap-5 mt-[5rem]" >
+      <div className="flex flex-wrap gap-5 mt-20" >
         {Favorites? (Favorites.map((product) => (
             <div key={product.id}>
                 <Product product={product}/>
