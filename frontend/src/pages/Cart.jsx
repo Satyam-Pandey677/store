@@ -40,9 +40,9 @@ const Cart = () => {
               {cartItems.map((item) => (
                 <div
                   key={item?._id}
-                  className="flex item-enter mb-[1rem] pb-2"
+                  className="flex item-enter mb-4 pb-2"
                 >
-                  <div className="w-[10rem] h-[10rem]">
+                  <div className="w-40 h-40">
                     <img 
                       src={item?.image} 
                       alt={item?.name} 
@@ -66,8 +66,8 @@ const Cart = () => {
                   </div>
 
                   <div>
-                    <button className="text-red-500 mr-[5rem]" onClick={() => removeFromCartHandler(item._id)}>
-                      <FaTrash className="ml-[1rem] mt-[.3rem] text-2xl"/>
+                    <button className="text-red-500 mr-20" onClick={() => removeFromCartHandler(item._id)}>
+                      <FaTrash className="ml-4 mt-[.3rem] text-2xl"/>
                     </button>
                   </div>
                 </div>
