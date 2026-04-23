@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import debounce from "lodash/debounce"
 import { Link } from "react-router-dom";
@@ -6,8 +6,6 @@ import { Link } from "react-router-dom";
 const SearchbarHeader = () => {
   const [productList, setProductList] = useState([]);
   const [loading, setLoading] = useState(false);
-
-  console.log(productList.length)
 
 
   const handleSearch = async(value) => {
@@ -19,7 +17,17 @@ const SearchbarHeader = () => {
 
   };
 
-  const debouncedSearch = debounce((value) => handleSearch(value),500) 
+  const debouncedSearch = useMemo(() => {
+    return debounce((value) => handleSearch(value),5) 
+  },[])
+
+
+  useEffect(() => {
+    return () => {
+      debouncedSearch.cancel();
+    }
+  },[debouncedSearch])
+  
     
 
   const handleChange = (e) => {
