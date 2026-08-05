@@ -2,44 +2,59 @@ name: Deploy to Kubernetes
 
 on:
   push:
-    - main
+    branches:
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Chacking Repository
-        uses: action/checkout@v4
+      # Checkout Repository
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
+      # Configure AWS Credentials
       - name: Configure AWS Credentials
-        uses: aws-action/configure-aws-credentials@v4 
-        whit:
-          aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
-          aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
-          aws-region: ${{secrets.AWS_REGION}}
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
+      # Login to Amazon ECR
       - name: Login to Amazon ECR
         id: login-ecr
-        uses: aws-action/amazon-ecr-login@v2
+        uses: aws-actions/amazon-ecr-login@v2
 
+      # Build Docker Image
+      - name: Build Docker Image
+        run: |
+          docker build -t shop-repo:latest .
+
+      # Tag Docker Image
       - name: Tag Docker Image
         run: |
-          docker tag shop-repo:latest ${{secrets.AWS_ACCOUNT_ID}}.dkr.ecr.${{secret.AWS_REGION}}.amazonaws.com/shop-repo:latest
-      
-      - name: Push Docker Image
-        runs: | 
-          docker push ${{secrets.AWS_ACCOUNT_ID}}.dkr.ecr.${{secrets.AWS_REGION}}.amazonaws.com/shop-repo:latest
+          docker tag shop-repo:latest \
+          ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/shop-repo:latest
 
-      - name: Deploy om EC2_HOST
+      # Push Docker Image
+      - name: Push Docker Image
+        run: |
+          docker push \
+          ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/shop-repo:latest
+
+      # Deploy to Kubernetes on EC2
+      - name: Deploy to EC2
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{secrets.EC2_HOST}}
-          username: ${{ secrets.EC2_USERNAME
-          }}
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | sudo docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
+            aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | \
+            sudo docker login --username AWS --password-stdin \
+            ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
+
             sudo kubectl rollout restart deployment my-shop-deployment
             sudo kubectl rollout status deployment my-shop-deployment
-            
