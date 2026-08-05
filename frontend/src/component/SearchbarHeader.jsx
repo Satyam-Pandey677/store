@@ -5,61 +5,71 @@ import { Link } from "react-router-dom";
 
 const SearchbarHeader = () => {
   const [productList, setProductList] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [query, setQuery] = useState("");
 
+  const handleSearch = async (value) => {
+    if (!value.trim()) {
+      setProductList([]);
+      return;
+    }
 
-  const handleSearch = async(value) => {
-    console.log(value);
-    const res = await fetch(`https://store-5w0m.onrender.com/api/products/search?search=${value}`);
-    const data = await res.json();
-    console.log(data)
-    setProductList(data)
-
+    try {
+      const res = await fetch(`https://store-5w0m.onrender.com/api/products/search?search=${encodeURIComponent(value)}`);
+      const data = await res.json();
+      setProductList(Array.isArray(data) ? data : []);
+    } catch (error) {
+      setProductList([]);
+    }
   };
 
-  const debouncedSearch = useMemo(() => {
-    return debounce((value) => handleSearch(value),5) 
-  },[])
-
+  const debouncedSearch = useMemo(() => debounce((value) => handleSearch(value), 250), []);
 
   useEffect(() => {
     return () => {
       debouncedSearch.cancel();
-    }
-  },[debouncedSearch])
-  
-    
+    };
+  }, [debouncedSearch]);
 
   const handleChange = (e) => {
-     if (!e.target.value.trim()) {
-    setProductList([]); // clear UI
-    return;
-  }
-    debouncedSearch(e.target.value)
-  }
+    const value = e.target.value;
+    setQuery(value);
+    if (!value.trim()) {
+      setProductList([]);
+      return;
+    }
+    debouncedSearch(value);
+  };
 
-    return (
-    
-    <div className="w-full h-15 border-b mb-5 flex justify-center align-middle">
-      <div className="w-100 border border-black rounded-full mb-2 px-5 flex align-middle relative">
-        <input
-          className=" w-full h-full focus:outline-0 text-[18px] text-gray-400 "
-          onChange={(e) => handleChange(e)}
-        />
-        <FaSearch className="h-full cursor-pointer" size={26} />
-        <div className={`absolute w-full h-full -bottom-13 z-10  ${productList.length<1?"hidden":"grid"}       `}>
-            {
-                productList.map((product) => (
-                    <Link key={product._id} to={`/product/${product._id}`}>
-                        <div className="flex bg-white border p-2">
-                            <img src={product.image} alt="" className="w-10" />
-                            <p className="text-gray-500 text-[20px]">{product.name}</p>
-                        </div>
-                    </Link>
-                ))
-            }
+  return (
+    <div className="relative mb-8">
+      <div className="mx-auto max-w-3xl rounded-full border border-slate-200 bg-white px-5 py-3 shadow-sm">
+        <div className="flex items-center gap-3">
+          <FaSearch className="text-slate-400" size={22} />
+          <input
+            value={query}
+            onChange={handleChange}
+            placeholder="Search products..."
+            aria-label="Search products"
+            className="w-full bg-transparent text-base text-slate-800 placeholder:text-slate-400 focus:outline-none"
+          />
         </div>
       </div>
+
+      {productList.length > 0 && (
+        <div className="absolute left-0 right-0 z-20 mx-auto mt-2 max-w-3xl overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-lg">
+          {productList.map((product) => (
+            <Link key={product._id} to={`/product/${product._id}`}>
+              <div className="flex items-center gap-3 border-b border-slate-100 px-4 py-3 transition hover:bg-slate-50">
+                <img src={product.image} alt={product.name} className="h-12 w-12 rounded-lg object-cover" />
+                <div>
+                  <p className="font-medium text-slate-900">{product.name}</p>
+                  <p className="text-sm text-slate-500">${product.price}</p>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
