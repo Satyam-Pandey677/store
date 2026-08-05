@@ -37,8 +37,7 @@ jobs:
           host: ${{secrets.EC2_HOST}}
           username: ${{ secrets.EC2_USERNAME
           }}
-          key: ${{ secrets.ec}
-          }key: ${{ secrets.EC2_SSH_KEY }}
+          key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | sudo docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
             sudo kubectl rollout restart deployment my-shop-deployment
