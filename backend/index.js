@@ -6,8 +6,8 @@ import cors from "cors"
 
 const app = express()
 app.use(cors({
-    origin:["http://localhost:5173","https://store-1-y4sw.onrender.com"],
-    credentials:true
+    origin: true,
+    credentials: true,
 }))
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))

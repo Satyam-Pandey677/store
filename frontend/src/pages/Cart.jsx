@@ -25,7 +25,7 @@ const Cart = () => {
   return (
     <>
       <div className="container flex justify-around item-start flex-wrap mx-auto mt-8">
-        {cartItems.length === 0 ? (
+        {cartItems?.length === 0 ? (
           <div>
             Your cart is empty <Link to="/shop" className="text-pink-500">Go To Shop</Link>
           </div>
@@ -37,7 +37,7 @@ const Cart = () => {
               </div>
 
 
-              {cartItems.map((item) => (
+              {cartItems?.map((item) => (
                 <div
                   key={item?._id}
                   className="flex item-enter mb-4 pb-2"
@@ -75,15 +75,15 @@ const Cart = () => {
               <div className="mt-8 w-[40 rem]">
                 <div className="p-4 rounded-lg">
                   <h2 className="text-xl font-semibold mb-2">
-                    Items {cartItems.reduce((acc, item) => acc + item.qty, 0)} 
+                    Items {cartItems?.reduce((acc, item) => acc + item.qty, 0)} 
                   </h2>
                   <div className="text-2xl font-bold">
-                    $ {cartItems.reduce((acc,item) => acc + item.qty * item.price,0).toFixed(2)}
+                    $ {cartItems?.reduce((acc,item) => acc + item.qty * item.price,0).toFixed(2)}
                   </div>
 
                   <button 
                   className="bg-pink-400 mt-4 py-2 px-4 rounded-full text-lg w-full cursor-pointer"
-                  disabled={cartItems.length == 0} 
+                  disabled={cartItems?.length == 0} 
                   onClick={checkOutHandler}
                   >
                     Proceed to Checkout

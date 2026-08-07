@@ -30,7 +30,7 @@ const Navbar = () => {
   const navigate = useNavigate()
   const [logoutApiCall] = useLogoutMutation()
 
-  const itemCount = cartItems.reduce((sum, item) => sum + item.qty, 0)
+  const itemCount = cartItems?.reduce((sum, item) => sum + item.qty, 0)
   const isAdmin = Boolean(userInfo?.data?.isAdmin || userInfo?.isAdmin)
   const profileName = userInfo?.data?.username || userInfo?.username || "Profile"
 

@@ -19,7 +19,7 @@ export default defineConfig({
   server: {
   proxy: {
     '/api': {
-      target: 'https://store-5w0m.onrender.com',
+      target: "http://13.233.156.6:30090",
       changeOrigin: true,
       secure: false,
     },

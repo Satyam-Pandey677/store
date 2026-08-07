@@ -4,9 +4,14 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 
 
 const authenticate = asyncHandler(async(req, res, next) => {
-    let token;
+    let token = req.cookies?.jwt;
 
-    token  = req.cookies.jwt
+    if (!token) {
+        const authHeader = req.headers.authorization || req.headers.Authorization;
+        if (authHeader?.startsWith('Bearer ')) {
+            token = authHeader.split(' ')[1];
+        }
+    }
 
     if(token){
         try {

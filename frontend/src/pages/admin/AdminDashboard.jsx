@@ -118,7 +118,7 @@ const AdminDashboard = () => {
 
                     <p className="mt-5">All Orders</p>
                     <h1 className="text-xl font-bold text-white">
-                       $ {isLoading ? <Loader/> : orders.totalOrder}
+                       $ {isLoading ? <Loader/> : orders?.totalOrder}
                     </h1>
                 </div>
 

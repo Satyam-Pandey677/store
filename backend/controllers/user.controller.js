@@ -27,11 +27,14 @@ const createUser = asyncHandler(async (req, res) => {
     password: hashedPassword,
   });
 
-  createToken(res, user._id);
+  const token = createToken(res, user._id);
 
   return res
     .status(201)
-    .json(new ApiResponse(201, user, "User Created SuccessFully"));
+    .json({
+      ...new ApiResponse(201, user, "User Created SuccessFully"),
+      token,
+    });
 });
 
 const loginUser = asyncHandler(async (req, res) => {
@@ -45,11 +48,14 @@ const loginUser = asyncHandler(async (req, res) => {
     ); 
 
     if (isPasswordMatched) {
-      createToken(res, existedUser._id);
+      const token = createToken(res, existedUser._id);
 
       res
         .status(201)
-        .json(new ApiResponse(201, existedUser, "User login successfully"));
+        .json({
+          ...new ApiResponse(201, existedUser, "User login successfully"),
+          token,
+        });
       return;
     }
   }

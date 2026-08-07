@@ -3,7 +3,16 @@ import { BASE_URL } from "../constants"
 
 const baseQuery = fetchBaseQuery({
     baseUrl : BASE_URL,
-    credentials:"include"
+    credentials:"include",
+    prepareHeaders: (headers, { getState }) => {
+        const token = getState()?.auth?.token || localStorage.getItem("token")
+
+        if (token) {
+            headers.set("authorization", `Bearer ${token}`)
+        }
+
+        return headers
+    }
 });
 
 export const apiSlice = createApi({
