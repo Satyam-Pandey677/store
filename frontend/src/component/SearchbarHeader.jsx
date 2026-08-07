@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import debounce from "lodash/debounce"
 import { Link } from "react-router-dom";
+import { BASE_URL } from "../redux/constants";
 
 const SearchbarHeader = () => {
   const [productList, setProductList] = useState([]);
@@ -14,7 +15,7 @@ const SearchbarHeader = () => {
     }
 
     try {
-      const res = await fetch(`https://store-5w0m.onrender.com/api/products/search?search=${encodeURIComponent(value)}`);
+      const res = await fetch(`${BASE_URL}/api/products/search?search=${encodeURIComponent(value)}`);
       const data = await res.json();
       setProductList(Array.isArray(data) ? data : []);
     } catch (error) {
