@@ -23,78 +23,114 @@ const Cart = () => {
   }
 
   return (
-    <>
-      <div className="container flex justify-around item-start flex-wrap mx-auto mt-8">
+    <div className="min-h-screen bg-slate-50 px-4 py-8 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl">
         {cartItems?.length === 0 ? (
-          <div>
-            Your cart is empty <Link to="/shop" className="text-pink-500">Go To Shop</Link>
+          <div className="rounded-[2rem] border border-slate-200 bg-white p-10 text-center shadow-sm">
+            <h2 className="text-2xl font-semibold text-slate-900">Your cart is empty</h2>
+            <p className="mt-3 text-slate-600">Add a few favorites and come back here to checkout.</p>
+            <Link
+              to="/shop"
+              className="mt-6 inline-flex rounded-full bg-pink-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-pink-700"
+            >
+              Continue shopping
+            </Link>
           </div>
         ) : (
-          <>
-            <div className="flex flex-col w-[80%]">
-              <div className="h1 text-2xl font-semibold mb-4">
-                Shopping Carts
+          <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+            <div className="rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+              <div className="mb-6 flex items-center justify-between">
+                <div>
+                  <p className="text-sm uppercase tracking-[0.3em] text-slate-500">Shopping cart</p>
+                  <h2 className="mt-1 text-2xl font-semibold text-slate-900">{cartItems.length} items</h2>
+                </div>
+                <div className="rounded-full bg-pink-50 px-4 py-2 text-sm font-semibold text-pink-700">
+                  Secure checkout
+                </div>
               </div>
 
+              <div className="space-y-4">
+                {cartItems?.map((item) => (
+                  <div
+                    key={item?._id}
+                    className="flex flex-col gap-4 rounded-[1.25rem] border border-slate-200 p-4 sm:flex-row sm:items-center"
+                  >
+                    <div className="h-28 w-full overflow-hidden rounded-[1rem] sm:h-24 sm:w-24">
+                      <img
+                        src={item?.image}
+                        alt={item?.name}
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
 
-              {cartItems?.map((item) => (
-                <div
-                  key={item?._id}
-                  className="flex item-enter mb-4 pb-2"
-                >
-                  <div className="w-40 h-40">
-                    <img 
-                      src={item?.image} 
-                      alt={item?.name} 
-                      className="w-full h-full object-cover rounded"
-                    />
-                  </div>
-                  <div className="flex-1 ml-4">
-                    <Link to={`/product/${item._id}`} className="text-pink-500 text-[20px] font-bold">
-                      {item.name}
-                    </Link>
-                    <div className="mt-2">{item.brand}</div>
-                    <div className="mt-2 font-extrabold">$ {item.price}</div>
-                  </div>
-                  <div className="w-24">
-                      <select  id="" className="w-full p-1 border rounded text-black" value={item.qty} onChange={(e) => addToCartHandler(item, Number(e.target.value))}
+                    <div className="flex-1">
+                      <Link to={`/product/${item._id}`} className="text-lg font-semibold text-slate-900 transition hover:text-pink-600">
+                        {item.name}
+                      </Link>
+                      <p className="mt-1 text-sm text-slate-500">{item.brand}</p>
+                      <p className="mt-2 text-lg font-bold text-slate-900">${item.price}</p>
+                    </div>
+
+                    <div className="flex items-center gap-3 sm:flex-col sm:items-end">
+                      <select
+                        value={item.qty}
+                        onChange={(e) => addToCartHandler(item, Number(e.target.value))}
+                        className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none focus:border-pink-400 focus:ring-2 focus:ring-pink-100 sm:w-24"
                       >
                         {[...Array(item.countInStock).keys()].map((x) => (
-                          <option value={x+1} key={x+1 } className="text-black">{x+1}</option>
+                          <option value={x + 1} key={x + 1}>
+                            {x + 1}
+                          </option>
                         ))}
                       </select>
-                  </div>
 
-                  <div>
-                    <button className="text-red-500 mr-20" onClick={() => removeFromCartHandler(item._id)}>
-                      <FaTrash className="ml-4 mt-[.3rem] text-2xl"/>
-                    </button>
+                      <button
+                        className="flex items-center gap-2 rounded-full border border-red-200 px-3 py-2 text-sm font-semibold text-red-600 transition hover:bg-red-50"
+                        onClick={() => removeFromCartHandler(item._id)}
+                      >
+                        <FaTrash />
+                        Remove
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))}
-              <div className="mt-8 w-[40 rem]">
-                <div className="p-4 rounded-lg">
-                  <h2 className="text-xl font-semibold mb-2">
-                    Items {cartItems?.reduce((acc, item) => acc + item.qty, 0)} 
-                  </h2>
-                  <div className="text-2xl font-bold">
-                    $ {cartItems?.reduce((acc,item) => acc + item.qty * item.price,0).toFixed(2)}
-                  </div>
-
-                  <button 
-                  className="bg-pink-400 mt-4 py-2 px-4 rounded-full text-lg w-full cursor-pointer"
-                  disabled={cartItems?.length == 0} 
-                  onClick={checkOutHandler}
-                  >
-                    Proceed to Checkout
-                  </button>
-                </div>
+                ))}
               </div>
             </div>
-          </>
+
+            <div className="rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+              <p className="text-sm uppercase tracking-[0.3em] text-slate-500">Order summary</p>
+              <h3 className="mt-2 text-2xl font-semibold text-slate-900">Ready to checkout?</h3>
+
+              <div className="mt-6 space-y-3 text-sm text-slate-600">
+                <div className="flex items-center justify-between">
+                  <span>Items</span>
+                  <span>{cartItems.reduce((acc, item) => acc + item.qty, 0)}</span>
+                </div>
+                <div className="flex items-center justify-between border-t border-slate-200 pt-3 text-base font-semibold text-slate-900">
+                  <span>Total</span>
+                  <span>${cartItems.reduce((acc, item) => acc + item.qty * item.price, 0).toFixed(2)}</span>
+                </div>
+              </div>
+
+              <button
+                className="mt-6 w-full rounded-full bg-pink-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-pink-700"
+                disabled={cartItems?.length === 0}
+                onClick={checkOutHandler}
+              >
+                Proceed to checkout
+              </button>
+
+              <Link
+                to="/shop"
+                className="mt-3 inline-flex w-full items-center justify-center rounded-full border border-slate-300 px-4 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-100"
+              >
+                Continue shopping
+              </Link>
+            </div>
+          </div>
         )}
       </div>
-    </>
+    </div>
   );
 };
 

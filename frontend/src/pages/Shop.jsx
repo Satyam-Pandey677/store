@@ -72,97 +72,96 @@ const Shop = () => {
   };
 
   return (
-    <>
-      <div className="container mx-auto">
-        <div className="flex md:flex-row">
-          <div className="bg-[#fff] p-3 mt-2 mb-2 shadow-2xl rounded-lg">
-            <h2 className="h4 text-center py-2 bg-gray-400 text-white font-bold rounded-full p-3">
-              Filter By Categories
-            </h2>
+    <div className="min-h-screen bg-slate-50 px-4 py-8 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-8 rounded-[2rem] bg-gradient-to-r from-slate-900 via-slate-800 to-pink-700 p-8 text-white shadow-xl">
+          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-pink-100">Discover more</p>
+          <h1 className="mt-3 text-3xl font-bold sm:text-4xl">Browse our full collection</h1>
+          <p className="mt-3 max-w-2xl text-sm text-slate-200 sm:text-base">
+            Explore handpicked products with easy filters and a smoother shopping experience.
+          </p>
+        </div>
 
-            <div className="p-5 w-[15rem]">
-              {categories.data?.map((c) => (
-                <div key={c._id} className="mb-2">
-                  <div className="flex items-center mr-4">
+        <div className="flex flex-col gap-6 lg:flex-row">
+          <aside className="w-full rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-sm lg:w-80">
+            <div className="mb-6">
+              <h2 className="text-lg font-semibold text-slate-900">Categories</h2>
+              <div className="mt-4 space-y-3">
+                {categories.data?.map((c) => (
+                  <label key={c._id} className="flex items-center gap-3 rounded-xl border border-slate-200 px-3 py-2 text-sm text-slate-700">
                     <input
                       type="checkbox"
-                      id="red-checkbox"
                       onChange={(e) => handleCheck(e.target.checked, c._id)}
-                      className="w-4 h-4 text-pink-600 rounded focus:ring-pink-500 dark:focus:ring-pink-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                      className="h-4 w-4 rounded border-slate-300 text-pink-600 focus:ring-pink-500"
                     />
-                    <label
-                      htmlFor="pink-checkbox"
-                      className="text-sm ml-2 font-medium "
-                    >
-                      {c.name}
-                    </label>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <h2 className="h4 text-center py-2 bg-gray-400 text-white font-bold rounded-full mb-2">
-              Filter By Brand
-            </h2>
-
-            <div className="pl-5">
-              {uniqueBrands?.map((brand,index) => (
-                <div key={brand} className="flex items-center mr-4 mb-5">
-                  <input
-                    type="radio"
-                    id={brand}
-                    name="brand"
-                    onChange={() => handleBrandClick(brand)}
-                    className="w-4 h-4 text-pink-600 focus:ring-pink-500 dark:focus:ring-pink-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                  />
-                  <label
-                    htmlFor="pink-radio"
-                    className="ml-2  text-sm font-medium"
-                  >
-                    {brand}
+                    <span>{c.name}</span>
                   </label>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-            <h2 className="h4 text-center py-2 bg-gray-400 text-white font-bold rounded-full mb-2">
-              Filter By Price
-            </h2>
-            <div className="p-5 w-[15rem]">
+
+            <div className="mb-6">
+              <h2 className="text-lg font-semibold text-slate-900">Brands</h2>
+              <div className="mt-4 space-y-3">
+                {uniqueBrands?.map((brand) => (
+                  <label key={brand} className="flex items-center gap-3 rounded-xl border border-slate-200 px-3 py-2 text-sm text-slate-700">
+                    <input
+                      type="radio"
+                      name="brand"
+                      onChange={() => handleBrandClick(brand)}
+                      className="h-4 w-4 border-slate-300 text-pink-600 focus:ring-pink-500"
+                    />
+                    <span>{brand}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <div className="mb-4">
+              <h2 className="text-lg font-semibold text-slate-900">Price</h2>
               <input
                 type="text"
                 placeholder="Enter price"
                 value={priceFilter}
                 onChange={(e) => setPriceFilter(e.target.value)}
-                className="w-full px-3 py-2 placeholder-gray-400 border rounded-lg focus:outline-none focus:ring focus:border-pink-300"
+                className="mt-3 w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none transition focus:border-pink-400 focus:ring-2 focus:ring-pink-100"
               />
             </div>
 
-            <div className="p-5 pt-0">
-              <button
-                className="w-full border my-4"
-                onClick={() => window.location.reload()}
-              >
-                Reset
-              </button>
-            </div>
-          </div>
+            <button
+              className="w-full rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100"
+              onClick={() => window.location.reload()}
+            >
+              Reset filters
+            </button>
+          </aside>
 
-          <div className="p-3">
-            <h2 className="h4 text-center mb-2">{product.length} Products</h2>
-            <div className="flex flex-wrap">
-              {product.length == 0 ? (
-                <Loader />
-              ) : (
-                product.map((p) => (
-                  <div className="p-3" key={p._id}>
-                    <ProductCard p={p} />
-                  </div>
-                ))
-              )}
+          <main className="flex-1 rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+            <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="text-sm uppercase tracking-[0.3em] text-slate-500">Shop collection</p>
+                <h2 className="mt-1 text-2xl font-semibold text-slate-900">{product.length} products</h2>
+              </div>
+              <div className="rounded-full bg-pink-50 px-4 py-2 text-sm font-medium text-pink-700">
+                Free shipping on orders over $75
+              </div>
             </div>
-          </div>
+
+            {product.length === 0 ? (
+              <div className="flex min-h-[280px] items-center justify-center rounded-[1.25rem] border border-dashed border-slate-300 bg-slate-50">
+                <Loader />
+              </div>
+            ) : (
+              <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+                {product.map((p) => (
+                  <ProductCard key={p._id} p={p} />
+                ))}
+              </div>
+            )}
+          </main>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
