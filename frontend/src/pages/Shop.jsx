@@ -74,7 +74,7 @@ const Shop = () => {
   return (
     <div className="min-h-screen bg-slate-50 px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
-        <div className="mb-8 rounded-[2rem] bg-gradient-to-r from-slate-900 via-slate-800 to-pink-700 p-8 text-white shadow-xl">
+        <div className="mb-8 rounded-[2rem] bg-linear-to-r from-slate-900 via-slate-800 to-pink-700 p-8 text-white shadow-xl">
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-pink-100">Discover more</p>
           <h1 className="mt-3 text-3xl font-bold sm:text-4xl">Browse our full collection</h1>
           <p className="mt-3 max-w-2xl text-sm text-slate-200 sm:text-base">
@@ -148,7 +148,7 @@ const Shop = () => {
             </div>
 
             {product.length === 0 ? (
-              <div className="flex min-h-[280px] items-center justify-center rounded-[1.25rem] border border-dashed border-slate-300 bg-slate-50">
+              <div className="flex min-h-70 items-center justify-center rounded-4xl border border-dashed border-slate-300 bg-slate-50">
                 <Loader />
               </div>
             ) : (
