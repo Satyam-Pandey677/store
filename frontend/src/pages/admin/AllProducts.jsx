@@ -3,6 +3,7 @@ import moment from "moment";
 import { useAllProductsQuery } from "../../redux/Api/productApiSlice";
 import AdminMenu from "./AdminMenu";
 import Loader from "../../component/Loader";
+import { ArrowUpRight, PackageOpen } from "lucide-react";
 
 const AllProducts = () => {
   const { data: products, isLoading, isError } = useAllProductsQuery();
@@ -19,77 +20,36 @@ const AllProducts = () => {
   }
 
   return (
-    <div className=" container mx-[9rem]">
-      <div className="flex flex-col md:flex-row ">
-        <div className="p-3">
-          <div className="ml-[rem] text-xl font-bold h-12">
-            All Products ({products.data.length})
-          </div>
-
-          <div className="flex flex-wrap justify-around items-center">
-            {products.data.map((product) => (
-              <div
-                key={product._id}
-                className="block mb-4 overflow-hidden border rounded p-2 shadow-lg cursor-pointer"
-                onClick={() => navigate(`/admin/product/update/${product._id}`)}
-              >
-                <div className="flex">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-[10rem] object-cover"
-                  />
-                  <div className=" p-4 flex flex-col justify-between">
-                    <div className="flex justify-between">
-                      <h5 className="text-xl font-semibold mb-2">
-                        {product.name}
-                      </h5>
-
-                      <p className="text-gray-400 text-sm">
-                        {moment(product.createdAt).format("MMMM Do YYYY")}
-                      </p>
-                    </div>
-
-                    <p className="text-gray-400 xl:w-[30rem] md:w-[20rem] sm:w-[10rem] text-sm mb-4">
-                      {product.discription?.substring(0, 160)}...
-                    </p>
-
-                    <div className="flex justify-between">
-                      <Link
-                        to={`/admin/product/update/${product._id}`}
-                        className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-pink-700 rounded-lg hover:bg-pink-800 focus:ring-4 focus:outline-none focus:ring-pink-300 dark:ring-pink-600 dark:hover:bg-pink-700 dark:focus:ring-pink-800"
-                      >
-                        Update Product
-                        <svg
-                          className="w-3.5 h-3.5 ml-2"
-                          aria-hidden="true"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 14 10"
-                        >
-                          <path
-                            stock="currentColor"
-                            strokeLinecap="rounded"
-                            strokeLinejoin="rounded"
-                            strokeWidth={2}
-                            d="M1 5h120 0L9 1m4 4L9 9"
-                          />
-                        </svg>
-                      </Link>
-                      <p>$ {product?.price}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+    <section className="space-y-8">
+      <AdminMenu />
+      <div className="flex flex-col gap-2 border-b border-slate-200 pb-6 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-pink-600">Catalog</p>
+          <h1 className="mt-2 text-3xl font-semibold tracking-tight text-slate-950">All products</h1>
+          <p className="mt-2 text-sm text-slate-500">Review your inventory and open any product to edit its details.</p>
         </div>
-
-        <div className="md:w-1/4 p-3 mt-2">
-          <AdminMenu />
-        </div>
+        <div className="flex items-center gap-2 text-sm text-slate-500"><PackageOpen size={17} className="text-pink-600" /> {products.data.length} products</div>
       </div>
-    </div>
+
+      <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+        {products.data.map((product) => (
+          <article key={product._id} className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:border-pink-200 hover:shadow-lg hover:shadow-pink-100/50" onClick={() => navigate(`/admin/product/update/${product._id}`)}>
+            <div className="relative flex h-56 items-center justify-center bg-slate-50 p-5">
+              <img src={product.image} alt={product.name} className="h-full w-full object-contain transition duration-300 group-hover:scale-105" />
+              <span className="absolute right-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-slate-600 shadow-sm">${product.price}</span>
+            </div>
+            <div className="p-5">
+              <div className="flex items-start justify-between gap-3">
+                <h2 className="font-semibold text-slate-900">{product.name}</h2>
+                <p className="shrink-0 text-xs text-slate-400">{moment(product.createdAt).format("MMM D, YYYY")}</p>
+              </div>
+              <p className="mt-3 min-h-12 text-sm leading-6 text-slate-500">{product.discription?.substring(0, 110) || "No description available."}{product.discription?.length > 110 ? "..." : ""}</p>
+              <Link to={`/admin/product/update/${product._id}`} onClick={(event) => event.stopPropagation()} className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-pink-600 transition hover:text-pink-700">Update product <ArrowUpRight size={16} /></Link>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
   );
 };
 
