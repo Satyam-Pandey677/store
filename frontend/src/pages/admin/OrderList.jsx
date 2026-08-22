@@ -4,7 +4,7 @@ import { useGetOrdersQuery } from "../../redux/Api/orderApiSlice";
 import Loader from "../../component/Loader";
 import AdminMenu from "./AdminMenu";
 
-const OrderList = () => {
+const OrderList = ({ showMenu = true }) => {
   const { data: orders, isLoading, error } = useGetOrdersQuery();
 
   return (
@@ -15,7 +15,7 @@ const OrderList = () => {
         <Message variant="danger">{error?.data?.error || error.error}</Message>
       ) : (
         <>
-          <AdminMenu />
+          {showMenu && <AdminMenu />}
         <table className="container mx-auto">
 
           <thead className="w-full border">
